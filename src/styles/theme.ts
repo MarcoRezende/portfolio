@@ -1,9 +1,13 @@
 const theme = {
-  colors: {
-    background: '#121214',
-    text: '#e1e1e6',
-    primary: '#8257e6'
-  }
-}
+	colors: {
+		background: {
+			primary: '#27262B',
+			navbar: '#363B41',
+		},
+		text: {
+			primary: '#DEDEDE',
+		},
+	},
+};
 
-export default theme
+export default theme;
