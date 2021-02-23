@@ -14,7 +14,7 @@ export default createGlobalStyle`
   body {
     background: ${props => props.theme.colors.background.primary};
     color: ${props => props.theme.colors.text.primary};
-    font: 400 16px Roboto, sans-serif;
+    font: 400 1.8rem Montserrat, sans-serif;
   }
 
   html, body {
@@ -23,6 +23,10 @@ export default createGlobalStyle`
 
   button {
     cursor: 'pointer';
+  }
+
+  input {
+    font: 400 1.8rem Montserrat, sans-serif;
   }
 
   #__next {
