@@ -1,6 +1,10 @@
 import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
+  :root {
+    font-size: 55%;
+  }
+
   * {
     margin: 0;
     padding: 0;
@@ -9,7 +13,7 @@ export default createGlobalStyle`
 
   body {
     background: ${props => props.theme.colors.background.primary};
-    color: ${props => props.theme.colors.text};
+    color: ${props => props.theme.colors.text.primary};
     font: 400 16px Roboto, sans-serif;
   }
 
@@ -24,6 +28,6 @@ export default createGlobalStyle`
   #__next {
     height: 100%;
     display: grid;
-    grid-template-rows: 1fr 2rem;
+    grid-template-rows: 1fr 6rem;
   }
 `;
