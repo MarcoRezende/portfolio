@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { darken } from 'polished';
 
 interface InputProps {
   inputFocused: boolean;
@@ -81,5 +82,54 @@ export const InputContainer = styled.div<InputProps>`
     width: 3rem;
     height: auto;
     margin-right: 1rem;
+  }
+`;
+
+export const SearchBar = styled.div`
+  display: grid;
+  grid-template-columns: 4rem repeat(3, minmax(0, 10rem));
+  width: 100%;
+  grid-gap: 0.8rem;
+
+  button {
+    height: 4rem;
+    background: transparent;
+    padding: 0.2rem;
+    border: 2px solid #928bad;
+    border-radius: 5px;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #dedede;
+
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+  }
+
+  button#filter,
+  button.active {
+    color: #100f13;
+    background: #928bad;
+    box-shadow: 0 7px 15px -2px rgb(0 0 0 / 70%);
+  }
+
+  button#filter {
+    border-radius: 50%;
+    width: 100%;
+    transition-property: background border-color;
+    transition-duration: 0.5s;
+
+    &:hover {
+      border-color: ${darken(0.05, '#928bad')};
+      background: ${darken(0.05, '#928bad')};
+      transition: all 0.5s;
+    }
+
+    svg {
+      transform: rotate(90deg);
+      width: auto;
+      height: 2.3rem;
+    }
   }
 `;

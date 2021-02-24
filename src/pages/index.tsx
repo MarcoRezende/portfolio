@@ -1,8 +1,9 @@
 import { useCallback, useState } from 'react';
 import Head from 'next/head';
 import { RiSearch2Line } from 'react-icons/ri';
+import { HiOutlineAdjustments } from 'react-icons/hi';
 
-import { Container, InputContainer } from '../styles/pages/Home';
+import { Container, InputContainer, SearchBar } from '../styles/pages/Home';
 
 const Home: React.FC = () => {
   const [inputFocused, setInputFocused] = useState(false);
@@ -34,6 +35,16 @@ const Home: React.FC = () => {
             onBlur={handleOnBlur}
           />
         </InputContainer>
+
+        <SearchBar>
+          <button id="filter">
+            <HiOutlineAdjustments />
+          </button>
+
+          <button>Todos</button>
+          <button className="active">Pessoais</button>
+          <button>Clones</button>
+        </SearchBar>
       </Container>
     </>
   );

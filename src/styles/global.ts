@@ -22,7 +22,8 @@ export default createGlobalStyle`
   }
 
   button {
-    cursor: 'pointer';
+    cursor: pointer;
+    font: 400 1.8rem Montserrat, sans-serif;
   }
 
   input {
