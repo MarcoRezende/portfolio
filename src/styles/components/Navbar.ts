@@ -3,6 +3,7 @@ import { darken } from 'polished';
 
 export const Container = styled.nav`
 	background: ${props => props.theme.colors.background.navbar};
+	box-shadow: 0 10px 30px 0px rgb(0 0 0 / 50%);
 	position: relative;
 `;
 
