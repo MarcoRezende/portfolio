@@ -1,18 +1,21 @@
 import styled, { css } from 'styled-components';
 import { darken } from 'polished';
 
+import Card from '../../components/Card';
+
 interface InputProps {
   inputFocused: boolean;
 }
 
 export const Container = styled.main`
   height: 100%;
-  padding: 3rem 2rem;
+  padding: 0 2rem 3rem;
 
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  overflow: hidden auto;
 
   h1 {
     font-size: 5rem;
@@ -31,7 +34,7 @@ export const Container = styled.main`
     }
   }
 
-  p {
+  > p {
     font-size: 1.6rem;
     text-decoration: underline;
     font-style: italic;
@@ -132,4 +135,27 @@ export const SearchBar = styled.div`
       height: 2.3rem;
     }
   }
+`;
+
+export const CustomCard = styled(Card)`
+  width: 100%;
+  color: fff;
+
+  > div {
+    width: 100%;
+  }
+`;
+
+export const CardCover = styled.div`
+  background-image: url('https://marcorezendebackup.github.io/portfolio/imgs/matching-game-cover-medium.png');
+  background-size: cover;
+
+  width: 100%;
+  height: 25rem;
+`;
+
+export const CardDetails = styled.div`
+  text-align: center;
+  padding: 1rem;
+  height: 10rem;
 `;

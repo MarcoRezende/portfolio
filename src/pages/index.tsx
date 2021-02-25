@@ -3,7 +3,16 @@ import Head from 'next/head';
 import { RiSearch2Line } from 'react-icons/ri';
 import { HiOutlineAdjustments } from 'react-icons/hi';
 
-import { Container, InputContainer, SearchBar } from '../styles/pages/Home';
+import Card from '../components/Card';
+
+import {
+  Container,
+  InputContainer,
+  SearchBar,
+  CustomCard,
+  CardCover,
+  CardDetails,
+} from '../styles/pages/Home';
 
 const Home: React.FC = () => {
   const [inputFocused, setInputFocused] = useState(false);
@@ -45,6 +54,23 @@ const Home: React.FC = () => {
           <button className="active">Pessoais</button>
           <button>Clones</button>
         </SearchBar>
+
+        <CustomCard
+          margin={1.6}
+          borderRadius="8px"
+          color="#1a191d"
+          reflection={3}
+          distanceRate={0.9}
+          applyBorderRadiusAll={false}
+        >
+          <div>
+            <CardCover />
+            <CardDetails>
+              <h2>Titulo</h2>
+              <p>Curta descrição</p>
+            </CardDetails>
+          </div>
+        </CustomCard>
       </Container>
     </>
   );
