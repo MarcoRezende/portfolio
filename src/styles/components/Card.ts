@@ -1,7 +1,13 @@
 import styled, { css } from 'styled-components';
 import { darken } from 'polished';
 
-export const Container = styled.div`
+import { CardProps } from '../../components/Card';
+
+interface CardContainerProps extends CardProps {
+	reflection: any[];
+}
+
+export const Container = styled.div<CardProps>`
 	position: relative;
 	border-radius: ${props => props.styles.borderRadius};
 	min-height: 100px;
@@ -14,7 +20,7 @@ export const Container = styled.div`
 
 		return css`
 			margin-top: ${props =>
-				props.styles.margin + margin + props.distanceRate}rem;
+				props.styles.margin + margin + props.features.distanceRate}rem;
 		`;
 	}}
 
@@ -23,10 +29,20 @@ export const Container = styled.div`
 			return css`
 				& > .reflection:nth-child(${i + 1}) {
 					width: ${100 - (i + 1) * 10}%;
-					bottom: ${i + 1 + props.distanceRate}rem;
+					bottom: ${i + 1 + props.features.distanceRate}rem;
 					z-index: ${-i - 1};
 					background: ${props =>
-						props.styles && darken((i + 1) * 0.01, props.styles.color)};
+						props.styles &&
+						darken(
+							(i + 1) * (props.features.darkenRate / 10),
+							props.styles.reflectColor
+								? props.styles.reflectColor
+								: props.styles.cardColor,
+						)};
+					${i + 1 !== props.reflections.length &&
+					css`
+						box-shadow: 0 -9px 5px -10px rgb(0 0 0 / 60%);
+					`}
 				}
 			`;
 		})}
@@ -41,11 +57,12 @@ export const Reflection = styled.div`
 	position: absolute;
 `;
 
-export const Content = styled.div`
-	background: ${props => props.styles.color};
+export const Content = styled.div<CardProps>`
+	background: ${props => props.styles.cardColor};
+	box-shadow: 0 -10px 10px -10px rgb(0 0 0 / 78%);
 
 	${props =>
-		props.applyBorderRadiusAll &&
+		props.features.applyBorderRadiusAll &&
 		css`
 			overflow: hidden;
 			border-radius: ${props => props.styles.borderRadius};

@@ -138,8 +138,8 @@ export const SearchBar = styled.div`
 `;
 
 export const CustomCard = styled(Card)`
-  width: 100%;
-  color: fff;
+  width: 30rem;
+  box-shadow: 0 21px 15px -14px #000;
 
   > div {
     width: 100%;
@@ -149,6 +149,7 @@ export const CustomCard = styled(Card)`
 export const CardCover = styled.div`
   background-image: url('https://marcorezendebackup.github.io/portfolio/imgs/matching-game-cover-medium.png');
   background-size: cover;
+  background-position: center;
 
   width: 100%;
   height: 25rem;

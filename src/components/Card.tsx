@@ -1,49 +1,66 @@
 import { Container, Content, Reflection } from '../styles/components/Card';
 
-interface CardProps {
+export interface CardProps {
   className?: string;
-  color?: string;
+
+  cardColor?: string;
+  reflectColor?: string;
   borderRadius?: string;
   margin?: number;
+
   reflection?: number;
   distanceRate?: number;
   applyBorderRadiusAll?: boolean;
+  darkenRate?: number;
 }
 
-const Navbar: React.FC<CardProps> = ({
-  className = '',
-  color = '#1a191d',
-  borderRadius = '0',
-  margin = 1,
-  reflection = 1,
-  distanceRate = 1,
-  applyBorderRadiusAll = true,
+const Card: React.SFC<CardProps> = ({
+  className,
+  cardColor,
+  reflectColor,
+  borderRadius,
+  margin,
+  reflection,
+  distanceRate,
+  applyBorderRadiusAll,
+  darkenRate,
   children,
 }) => {
-  const styles = {
-    color,
-    margin,
-    borderRadius,
-  };
-
   const reflections = Array(reflection).fill(0);
+  const [styles, features] = [
+    { cardColor, reflectColor, borderRadius, margin },
+    { reflection, distanceRate, applyBorderRadiusAll, darkenRate },
+  ];
 
   return (
     <Container
       className={className}
       styles={styles}
+      features={features}
       reflections={reflections}
-      distanceRate={distanceRate}
-      applyBorderRadiusAll={false}
     >
       {reflections.map((_, i) => (
         <Reflection className="reflection" key={'reflection-' + i++} />
       ))}
-      <Content styles={styles} applyBorderRadiusAll={applyBorderRadiusAll}>
+      <Content styles={styles} features={features}>
         {children}
       </Content>
     </Container>
   );
 };
 
-export default Navbar;
+Card.defaultProps = {
+  className: '',
+
+  cardColor: '#1a191d',
+  reflectColor: '',
+  borderRadius: '0',
+  margin: 1,
+
+  reflection: 1,
+  distanceRate: 1,
+  applyBorderRadiusAll: true,
+  darkenRate: 0.1,
+};
+
+export default Card;

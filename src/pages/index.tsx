@@ -58,10 +58,12 @@ const Home: React.FC = () => {
         <CustomCard
           margin={1.6}
           borderRadius="8px"
-          color="#1a191d"
+          cardColor="#1a191d"
+          reflectColor="#3a3742"
           reflection={3}
           distanceRate={0.9}
           applyBorderRadiusAll={false}
+          darkenRate={0.31}
         >
           <div>
             <CardCover />
