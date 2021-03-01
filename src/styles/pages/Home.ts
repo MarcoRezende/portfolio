@@ -89,6 +89,7 @@ export const InputContainer = styled.div<InputProps>`
 `;
 
 export const SearchBar = styled.div`
+  position: relative;
   display: grid;
   grid-template-columns: 4rem repeat(3, minmax(0, 10rem));
   width: 100%;
@@ -118,6 +119,7 @@ export const SearchBar = styled.div`
   }
 
   button#filter {
+    position: relative;
     border-radius: 50%;
     width: 100%;
     transition-property: background border-color;
@@ -133,6 +135,97 @@ export const SearchBar = styled.div`
       transform: rotate(90deg);
       width: auto;
       height: 2.3rem;
+    }
+  }
+`;
+
+export const FilterContainer = styled.form`
+  box-shadow: 0 15px 15px -5px rgb(0 0 0 / 67%);
+  position: absolute;
+  padding: 2rem;
+  top: calc(100% + 2rem);
+  width: 100%;
+  min-height: 15rem;
+  z-index: 1;
+  border-radius: 10px;
+  background: #171212;
+
+  &:before {
+    content: '';
+    bottom: 100%;
+    width: 0;
+    left: 1rem;
+    position: absolute;
+    height: 0;
+    border-left: 1rem solid transparent;
+    border-right: 1rem solid transparent;
+    border-bottom: 1.2rem solid #171212;
+  }
+`;
+
+export const FormGroup = styled.div`
+  & + & {
+    margin-top: 1rem;
+  }
+
+  h2 {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    font-weight: 500;
+  }
+
+  > h2:after {
+    content: '';
+    background: #2d2929;
+    height: 1px;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+`;
+
+export const SelectGroup = styled.div`
+  display: grid;
+  grid-template-columns: 50% 1fr;
+  grid-column-gap: 1rem;
+
+  > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    input[type='radio'] {
+      visibility: hidden;
+      width: 0;
+    }
+
+    input[type='radio'] + label {
+      width: 100%;
+      padding: 1.2rem;
+      background: transparent;
+      border: 2px solid #3b3a42;
+      border-radius: 5px;
+      font-size: 1.4rem;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition-property: border background;
+      transition-duration: 0.5s;
+
+      &:hover {
+        background: ${darken(0.05, '#928bad')};
+        border-color: ${darken(0.05, '#928bad')};
+      }
+    }
+
+    input[type='radio']:checked + label {
+      transition: all 0.5s;
+      color: #100f13;
+      font-weight: 800;
+      background: #928bad;
+      box-shadow: 0 7px 15px -2px rgb(0 0 0 / 70%);
+      border-color: #928bad;
     }
   }
 `;

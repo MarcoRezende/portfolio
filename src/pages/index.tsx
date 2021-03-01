@@ -9,6 +9,9 @@ import {
   Container,
   InputContainer,
   SearchBar,
+  FilterContainer,
+  FormGroup,
+  SelectGroup,
   CustomCard,
   CardCover,
   CardDetails,
@@ -53,6 +56,50 @@ const Home: React.FC = () => {
           <button>Todos</button>
           <button className="active">Pessoais</button>
           <button>Clones</button>
+
+          <FilterContainer>
+            <FormGroup>
+              <h2>Filtrar por data</h2>
+
+              <SelectGroup>
+                <div>
+                  <input
+                    id="newest"
+                    type="radio"
+                    value="newest"
+                    name="sortByDate"
+                  />
+                  <label for="newest">Mais novos</label>
+                </div>
+
+                <div>
+                  <input
+                    id="oldest"
+                    type="radio"
+                    value="oldest"
+                    name="sortByDate"
+                  />
+                  <label for="oldest">Antigos</label>
+                </div>
+              </SelectGroup>
+            </FormGroup>
+
+            <FormGroup>
+              <h2>Filtrar por tag</h2>
+              <select>
+                <option value="newest">Mais novos</option>
+                <option value="oldest">Antigos</option>
+              </select>
+            </FormGroup>
+
+            <FormGroup>
+              <h2>Status</h2>
+              <select>
+                <option value="newest">Mais novos</option>
+                <option value="oldest">Antigos</option>
+              </select>
+            </FormGroup>
+          </FilterContainer>
         </SearchBar>
 
         <CustomCard
