@@ -1,7 +1,9 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, FormEvent } from 'react';
 import Head from 'next/head';
 import { RiSearch2Line } from 'react-icons/ri';
 import { HiOutlineAdjustments } from 'react-icons/hi';
+import makeAnimated from 'react-select/animated';
+import { motion } from 'framer-motion';
 
 import Card from '../components/Card';
 
@@ -10,8 +12,10 @@ import {
   InputContainer,
   SearchBar,
   FilterContainer,
+  SubmitButtonContainer,
   FormGroup,
   SelectGroup,
+  CustomSelect,
   CustomCard,
   CardCover,
   CardDetails,
@@ -19,6 +23,7 @@ import {
 
 const Home: React.FC = () => {
   const [inputFocused, setInputFocused] = useState(false);
+  const [isFilterOpened, setIsFilterOpened] = useState(false);
 
   const handleOnFocus = useCallback(() => {
     setInputFocused(true);
@@ -27,6 +32,36 @@ const Home: React.FC = () => {
   const handleOnBlur = useCallback(() => {
     setInputFocused(false);
   }, []);
+
+  const handleIsFilterOpened = useCallback(() => {
+    setIsFilterOpened(!isFilterOpened);
+  }, [isFilterOpened]);
+
+  const handleFilterOnSubmit = useCallback((e: FormEvent) => {
+    e.preventDefault();
+
+  }, []);
+
+  const variants = {
+    container: {
+      hidden: { opacity: 0, height: 0, overflow: 'hidden' },
+      visible: {
+        opacity: 1,
+        scale: 1,
+        transition: {
+          delayChildren: 0.3,
+          staggerChildren: 0.2,
+        },
+      },
+    },
+    item: {
+      hidden: { y: 20, opacity: 0 },
+      visible: {
+        y: 0,
+        opacity: 1,
+      },
+    }
+  }
 
   return (
     <>
@@ -49,7 +84,7 @@ const Home: React.FC = () => {
         </InputContainer>
 
         <SearchBar>
-          <button id="filter">
+          <button id="filter" onClick={() => handleIsFilterOpened()}>
             <HiOutlineAdjustments />
           </button>
 
@@ -57,8 +92,12 @@ const Home: React.FC = () => {
           <button className="active">Pessoais</button>
           <button>Clones</button>
 
-          <FilterContainer>
-            <FormGroup>
+          <FilterContainer
+            onSubmit={handleFilterOnSubmit}
+            animate={isFilterOpened ? "visible" : "hidden"}
+            variants={variants.container}
+          >
+            <FormGroup variants={variants.item}>
               <h2>Filtrar por data</h2>
 
               <SelectGroup>
@@ -69,7 +108,7 @@ const Home: React.FC = () => {
                     value="newest"
                     name="sortByDate"
                   />
-                  <label for="newest">Mais novos</label>
+                  <label htmlFor="newest">Mais novos</label>
                 </div>
 
                 <div>
@@ -79,26 +118,54 @@ const Home: React.FC = () => {
                     value="oldest"
                     name="sortByDate"
                   />
-                  <label for="oldest">Antigos</label>
+                  <label htmlFor="oldest">Antigos</label>
                 </div>
               </SelectGroup>
             </FormGroup>
 
-            <FormGroup>
+            <FormGroup variants={variants.item}>
               <h2>Filtrar por tag</h2>
-              <select>
-                <option value="newest">Mais novos</option>
-                <option value="oldest">Antigos</option>
-              </select>
+              <CustomSelect
+                components={makeAnimated()}
+                instanceId="customSelect"
+                classNamePrefix="custom-select"
+                isMulti
+                options={[
+                  { value: 'react', label: 'React' },
+                  { value: 'node', label: 'Node' },
+                ]}
+              />
             </FormGroup>
 
-            <FormGroup>
+            <FormGroup variants={variants.item}>
               <h2>Status</h2>
-              <select>
-                <option value="newest">Mais novos</option>
-                <option value="oldest">Antigos</option>
-              </select>
+
+              <SelectGroup>
+                <div>
+                  <input
+                    id="done"
+                    type="radio"
+                    value="done"
+                    name="sortByStatus"
+                  />
+                  <label htmlFor="done">Finalizado</label>
+                </div>
+
+                <div>
+                  <input
+                    id="inProgress"
+                    type="radio"
+                    value="inProgress"
+                    name="sortByStatus"
+                  />
+                  <label htmlFor="inProgress">Em progresso</label>
+                </div>
+              </SelectGroup>
             </FormGroup>
+
+            <SubmitButtonContainer onClick={() => handleIsFilterOpened()} variants={variants.item} type="submit">
+              <button type="submit">Filtrar</button>
+            </SubmitButtonContainer>
           </FilterContainer>
         </SearchBar>
 

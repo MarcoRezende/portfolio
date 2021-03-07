@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 import { darken } from 'polished';
+import Select from 'react-select';
+import { motion } from "framer-motion"
 
 import Card from '../../components/Card';
 
@@ -99,11 +101,11 @@ export const SearchBar = styled.div`
     height: 4rem;
     background: transparent;
     padding: 0.2rem;
-    border: 2px solid #928bad;
+    border: 2px solid #6443e4;
     border-radius: 5px;
     font-size: 1.4rem;
     font-weight: 800;
-    color: #dedede;
+    color: ${props => props.theme.colors.text.primary};
 
     display: flex;
     flex: 1;
@@ -113,12 +115,12 @@ export const SearchBar = styled.div`
 
   button#filter,
   button.active {
-    color: #100f13;
-    background: #928bad;
+    background: #6443e4;
     box-shadow: 0 7px 15px -2px rgb(0 0 0 / 70%);
   }
 
   button#filter {
+    color: #1d0f50;
     position: relative;
     border-radius: 50%;
     width: 100%;
@@ -126,8 +128,8 @@ export const SearchBar = styled.div`
     transition-duration: 0.5s;
 
     &:hover {
-      border-color: ${darken(0.05, '#928bad')};
-      background: ${darken(0.05, '#928bad')};
+      border-color: ${darken(0.05, '#6443e4')};
+      background: ${darken(0.05, '#6443e4')};
       transition: all 0.5s;
     }
 
@@ -139,13 +141,13 @@ export const SearchBar = styled.div`
   }
 `;
 
-export const FilterContainer = styled.form`
+export const FilterContainer = styled(motion.form)`
   box-shadow: 0 15px 15px -5px rgb(0 0 0 / 67%);
   position: absolute;
   padding: 2rem;
   top: calc(100% + 2rem);
   width: 100%;
-  min-height: 15rem;
+  max-width: 40rem;
   z-index: 1;
   border-radius: 10px;
   background: #171212;
@@ -163,7 +165,23 @@ export const FilterContainer = styled.form`
   }
 `;
 
-export const FormGroup = styled.div`
+export const SubmitButtonContainer = styled(motion.div)`
+  button[type='submit'] {
+    background: #6443e4;
+    border-color: #6443e4;
+    width: 100%;
+    margin-top: 2rem;
+    transition-property: border background;
+    transition-duration: 0.5s;
+
+    &:hover {
+      background: ${darken(0.03, '#6443e4')};
+      border-color: ${darken(0.03, '#6443e4')};
+    }
+  }
+`;
+
+export const FormGroup = styled(motion.div)`
   & + & {
     margin-top: 1rem;
   }
@@ -214,18 +232,16 @@ export const SelectGroup = styled.div`
       transition-duration: 0.5s;
 
       &:hover {
-        background: ${darken(0.05, '#928bad')};
-        border-color: ${darken(0.05, '#928bad')};
+        background: #6443e4;
+        border-color: #6443e4;
       }
     }
 
     input[type='radio']:checked + label {
       transition: all 0.5s;
-      color: #100f13;
-      font-weight: 800;
-      background: #928bad;
+      background: #6443e4;
       box-shadow: 0 7px 15px -2px rgb(0 0 0 / 70%);
-      border-color: #928bad;
+      border-color: #6443e4;
     }
   }
 `;
@@ -252,4 +268,31 @@ export const CardDetails = styled.div`
   text-align: center;
   padding: 1rem;
   height: 10rem;
+`;
+
+export const CustomSelect = styled(Select)`
+  .custom-select__control {
+    background: #171212;
+    color: #100f13;
+    border: 2px solid #3b3a42;
+    box-shadow: none;
+    transition: border-color 0.5s;
+
+    &:hover {
+      border-color: #6443e4;
+    }
+  }
+
+  .custom-select__menu {
+    background: #171212;
+    color: ${props => props.theme.colors.text.primary};
+  }
+
+  .custom-select__option {
+    cursor: pointer;
+  }
+
+  .custom-select__option--is-focused {
+    background: #6443e4;
+  }
 `;
