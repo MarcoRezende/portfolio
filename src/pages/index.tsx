@@ -24,6 +24,7 @@ import {
 const Home: React.FC = () => {
   const [inputFocused, setInputFocused] = useState(false);
   const [isFilterOpened, setIsFilterOpened] = useState(false);
+  const [activeNavItem, setActiveNavItem] = useState('all');
 
   const handleOnFocus = useCallback(() => {
     setInputFocused(true);
@@ -37,9 +38,12 @@ const Home: React.FC = () => {
     setIsFilterOpened(!isFilterOpened);
   }, [isFilterOpened]);
 
+  const handleCurrentNavItem = useCallback((id: string) => {
+    setActiveNavItem(id);
+  }, []);
+
   const handleFilterOnSubmit = useCallback((e: FormEvent) => {
     e.preventDefault();
-
   }, []);
 
   const variants = {
@@ -60,8 +64,8 @@ const Home: React.FC = () => {
         y: 0,
         opacity: 1,
       },
-    }
-  }
+    },
+  };
 
   return (
     <>
@@ -88,13 +92,25 @@ const Home: React.FC = () => {
             <HiOutlineAdjustments />
           </button>
 
-          <button>Todos</button>
-          <button className="active">Pessoais</button>
-          <button>Clones</button>
+          <button
+            onClick={() => handleCurrentNavItem('all')}
+            className={activeNavItem === 'all' && 'active'}>
+            Todos
+          </button>
+          <button
+            onClick={() => handleCurrentNavItem('personal')}
+            className={activeNavItem === 'personal' && 'active'}>
+            Pessoais
+          </button>
+          <button
+            onClick={() => handleCurrentNavItem('clone')}
+            className={activeNavItem === 'clone' && 'active'}>
+            Clones
+          </button>
 
           <FilterContainer
             onSubmit={handleFilterOnSubmit}
-            animate={isFilterOpened ? "visible" : "hidden"}
+            animate={isFilterOpened ? 'visible' : 'hidden'}
             variants={variants.container}
           >
             <FormGroup variants={variants.item}>
@@ -163,7 +179,11 @@ const Home: React.FC = () => {
               </SelectGroup>
             </FormGroup>
 
-            <SubmitButtonContainer onClick={() => handleIsFilterOpened()} variants={variants.item} type="submit">
+            <SubmitButtonContainer
+              onClick={() => handleIsFilterOpened()}
+              variants={variants.item}
+              type="submit"
+            >
               <button type="submit">Filtrar</button>
             </SubmitButtonContainer>
           </FilterContainer>
