@@ -8,6 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@unform/core": "^2.1.6",
+    "@unform/web": "^2.1.6",
     "framer-motion": "^3.3.0",
     "next": "10.0.6",
     "next-images": "^1.7.0",
