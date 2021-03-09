@@ -12,10 +12,9 @@ interface InputProps {
 
 export const Container = styled.main`
   height: 100%;
-  padding: 0 2rem 3rem;
+  padding: 0 2rem 4rem;
 
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
   overflow: hidden auto;
@@ -210,12 +209,27 @@ export const SelectGroup = styled.div`
   grid-column-gap: 1rem;
 `;
 
+export const CardsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-column-gap: 1rem;
+
+
+  @media (max-width: 500px) {
+    grid-template-columns: auto;
+  }
+`;
+
 export const CustomCard = styled(Card)`
-  width: 30rem;
+  width: 22rem;
   box-shadow: 0 21px 15px -14px #000;
 
   > div {
     width: 100%;
+  }
+
+  @media (max-width: 500px) {
+    width: 30rem;
   }
 `;
 
@@ -225,13 +239,25 @@ export const CardCover = styled.div`
   background-position: center;
 
   width: 100%;
-  height: 25rem;
+  height: 18rem;
+
+  @media (max-width: 500px) {
+    height: 25rem;
+  }
 `;
 
 export const CardDetails = styled.div`
   text-align: center;
   padding: 1rem;
   height: 10rem;
+
+  h2 {
+    font-size: 1.8rem;
+
+    @media (max-width: 500px) {
+      font-size: 2.4rem;
+    }
+  }
 `;
 
 export const CustomSelect = styled(Select)`

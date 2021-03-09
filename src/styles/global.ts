@@ -2,7 +2,11 @@ import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
   :root {
-    font-size: 55%;
+    font-size: 60%;
+
+    @media (max-width: 500px) {
+      font-size: 55%;
+    }
   }
 
   * {

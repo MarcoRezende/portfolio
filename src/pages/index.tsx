@@ -20,6 +20,7 @@ import {
   FormGroup,
   SelectGroup,
   CustomSelect,
+  CardsGrid,
   CustomCard,
   CardCover,
   CardDetails,
@@ -178,24 +179,45 @@ const Home: React.FC = () => {
           </SearchBar>
         </Form>
 
-        <CustomCard
-          margin={1.6}
-          borderRadius="8px"
-          cardColor="#1a191d"
-          reflectColor="#3a3742"
-          reflection={3}
-          distanceRate={0.9}
-          applyBorderRadiusAll={false}
-          darkenRate={0.31}
-        >
-          <div>
-            <CardCover />
-            <CardDetails>
-              <h2>Titulo</h2>
-              <p>Curta descrição</p>
-            </CardDetails>
-          </div>
-        </CustomCard>
+        <CardsGrid>
+          <CustomCard
+            margin={1.6}
+            borderRadius="8px"
+            cardColor="#1a191d"
+            reflectColor="#3a3742"
+            reflection={3}
+            distanceRate={0.9}
+            applyBorderRadiusAll={false}
+            darkenRate={0.31}
+          >
+            <div>
+              <CardCover />
+              <CardDetails>
+                <h2>Titulo</h2>
+                <p>Curta descrição</p>
+              </CardDetails>
+            </div>
+          </CustomCard>
+
+          <CustomCard
+            margin={1.6}
+            borderRadius="8px"
+            cardColor="#1a191d"
+            reflectColor="#3a3742"
+            reflection={3}
+            distanceRate={0.9}
+            applyBorderRadiusAll={false}
+            darkenRate={0.31}
+          >
+            <div>
+              <CardCover />
+              <CardDetails>
+                <h2>Titulo</h2>
+                <p>Curta descrição</p>
+              </CardDetails>
+            </div>
+          </CustomCard>
+        </CardsGrid>
       </Container>
     </>
   );
