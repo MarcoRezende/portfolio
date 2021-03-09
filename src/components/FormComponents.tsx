@@ -17,6 +17,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 interface InputRadioProps extends InputHTMLAttributes<HTMLInputElement> {
 	isFilterOpened?: boolean;
 	name: string;
+	btnType?: string;
 	options: {
 		id: string;
 		value: string;
@@ -44,6 +45,7 @@ export const Input: React.FC<InputProps> = ({ name, ...rest }) => {
 const InputRadio: React.FC<InputRadioProps> = ({
 	isFilterOpened,
 	name,
+	btnType = 'button',
 	options,
 	...rest
 }) => {
@@ -86,7 +88,7 @@ const InputRadio: React.FC<InputRadioProps> = ({
 	return (
 		<>
 			{options.map(option => (
-				<InputRadioContainer key={option.id} >
+				<InputRadioContainer type={btnType} key={option.id} >
 					<input
 						ref={ref => setRefs(ref)}
 						id={option.id}

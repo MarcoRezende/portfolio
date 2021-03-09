@@ -1,10 +1,14 @@
 import styled, { css } from 'styled-components';
 import { darken } from 'polished';
 
-export const InputRadioContainer = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: center;
+export const InputRadioContainer = styled.button`
+  background: transparent;
+  border: 0;
+  color: ${props => props.theme.colors.text.primary};
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
 	input[type='radio'] {
 		visibility: hidden;

@@ -98,22 +98,6 @@ export const SearchBar = styled.div`
   width: 100%;
   grid-gap: 0.8rem;
 
-  button {
-    height: 4rem;
-    background: transparent;
-    padding: 0.2rem;
-    border: 2px solid #6443e4;
-    border-radius: 5px;
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: ${props => props.theme.colors.text.primary};
-
-    display: flex;
-    flex: 1;
-    align-items: center;
-    justify-content: center;
-  }
-
   button#filter,
   button.active {
     background: #6443e4;
@@ -141,6 +125,22 @@ export const SearchBar = styled.div`
     }
   }
 `;
+
+export const Button = styled.button`
+  height: 4rem;
+  background: transparent;
+  padding: 0.2rem;
+  border: 2px solid #6443e4;
+  border-radius: 5px;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: ${props => props.theme.colors.text.primary};
+
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`
 
 export const FilterContainer = styled(motion.div)`
   box-shadow: 0 15px 15px -5px rgb(0 0 0 / 67%);

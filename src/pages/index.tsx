@@ -1,4 +1,4 @@
-import { useCallback, useState, useRef, memo } from 'react';
+import { useCallback, useState, useRef, useEffect } from 'react';
 import Head from 'next/head';
 import { RiSearch2Line } from 'react-icons/ri';
 import { HiOutlineAdjustments } from 'react-icons/hi';
@@ -14,6 +14,7 @@ import {
   Container,
   InputContainer,
   SearchBar,
+  Button,
   FilterContainer,
   SubmitButtonContainer,
   FormGroup,
@@ -25,11 +26,12 @@ import {
 } from '../styles/pages/Home';
 
 const Home: React.FC = () => {
-  const formRef = useRef<FormHandles>(null);
+  const formRef = useRef<FormHandles>(null)
   const [inputFocused, setInputFocused] = useState(false);
   const [isFilterOpened, setIsFilterOpened] = useState(false);
   const [activeNavItem, setActiveNavItem] = useState('all');
-  const [selectValue, setSelectValue] = useState("");
+  const [selectValue, setSelectValue] = useState('');
+  const [animationState, setAnimationState] = useState('hidden');
 
   const handleOnFocus = useCallback(() => {
     setInputFocused(true);
@@ -40,25 +42,22 @@ const Home: React.FC = () => {
   }, []);
 
   const handleIsFilterOpened = useCallback(() => {
+    setAnimationState('exit');
+
     setIsFilterOpened(!isFilterOpened);
-  }, [isFilterOpened]);
+  }, [isFilterOpened, animationState]);
 
-  const handleCurrentNavItem = useCallback((id: string) => {
-    setActiveNavItem(id);
-  }, []);
-
-  const handleSelectValue = useCallback((value) => {
+  const handleSelectValue = useCallback(value => {
     setSelectValue(JSON.stringify(value));
-    console.log(value)
   }, []);
 
-  const handleFilterOnSubmit = useCallback((data) => {
-    console.log(data)
+  const handleFilterOnSubmit = useCallback(data => {
+    console.log(data);
   }, []);
 
   const variants = {
     container: {
-      hidden: { opacity: 0, height: 0, overflow: 'hidden' },
+      hidden: { display: 'none' },
       visible: {
         opacity: 1,
         scale: 1,
@@ -67,6 +66,7 @@ const Home: React.FC = () => {
           staggerChildren: 0.2,
         },
       },
+      exit: { opacity: 0, height: 0, overflow: 'hidden' },
     },
     item: {
       hidden: { y: 20, opacity: 0 },
@@ -78,19 +78,19 @@ const Home: React.FC = () => {
   };
   const radioOptions = {
     navBarItems: [
-      {label: "Todos", id: "all", value: "all"},
-      {label: "Pessoais", id: "personal", value: "personal"},
-      {label: "Clones", id: "clone", value: "clone"}
+      { label: 'Todos', id: 'all', value: 'all' },
+      { label: 'Pessoais', id: 'personal', value: 'personal' },
+      { label: 'Clones', id: 'clone', value: 'clone' },
     ],
     sortByDate: [
-      {label: "Recentes", id: "recent", value: "recent"},
-      {label: "Antigos", id: "oldest", value: "oldest"}
+      { label: 'Recentes', id: 'recent', value: 'recent' },
+      { label: 'Antigos', id: 'oldest', value: 'oldest' },
     ],
     sortByStatus: [
-      {label: "Finalizado", id: "done", value: "done"},
-      {label: "Em Progresso", id: "inProgress", value: "inProgress"},
+      { label: 'Finalizado', id: 'done', value: 'done' },
+      { label: 'Em Progresso', id: 'inProgress', value: 'inProgress' },
     ],
-  }
+  };
 
   return (
     <>
@@ -114,21 +114,29 @@ const Home: React.FC = () => {
           </InputContainer>
 
           <SearchBar>
-            <button id="filter" type="button" onClick={() => handleIsFilterOpened()}>
+            <Button
+              id="filter"
+              type="button"
+              onClick={() => handleIsFilterOpened()}
+            >
               <HiOutlineAdjustments />
-            </button>
+            </Button>
 
-            <InputRadio name='navBarItems' options={radioOptions.navBarItems} />
+            <InputRadio btnType="submit" name="navBarItems" options={radioOptions.navBarItems} />
 
             <FilterContainer
-              animate={isFilterOpened ? 'visible' : 'hidden'}
+              animate={isFilterOpened ? 'visible' : animationState}
               variants={variants.container}
             >
               <FormGroup variants={variants.item}>
                 <h2>Filtrar por data</h2>
 
                 <SelectGroup>
-                  <InputRadio name='sortByDate' options={radioOptions.sortByDate} isFilterOpened={isFilterOpened} />
+                  <InputRadio
+                    name="sortByDate"
+                    options={radioOptions.sortByDate}
+                    isFilterOpened={isFilterOpened}
+                  />
                 </SelectGroup>
               </FormGroup>
 
@@ -152,7 +160,11 @@ const Home: React.FC = () => {
                 <h2>Status</h2>
 
                 <SelectGroup>
-                  <InputRadio name='sortByStatus' options={radioOptions.sortByStatus} isFilterOpened={isFilterOpened} />
+                  <InputRadio
+                    name="sortByStatus"
+                    options={radioOptions.sortByStatus}
+                    isFilterOpened={isFilterOpened}
+                  />
                 </SelectGroup>
               </FormGroup>
 
@@ -160,7 +172,7 @@ const Home: React.FC = () => {
                 onClick={() => handleIsFilterOpened()}
                 variants={variants.item}
               >
-                <button type="submit">Filtrar</button>
+                <Button type="submit">Filtrar</Button>
               </SubmitButtonContainer>
             </FilterContainer>
           </SearchBar>
