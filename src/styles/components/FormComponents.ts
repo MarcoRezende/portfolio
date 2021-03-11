@@ -17,11 +17,9 @@ export const InputRadioContainer = styled.button`
 
 	input[type='radio'] + label {
 		width: 100%;
-		padding: 1.2rem;
 		background: transparent;
 		border: 2px solid #3b3a42;
 		border-radius: 5px;
-		font-size: 1.4rem;
 		font-weight: 600;
 		text-align: center;
 		cursor: pointer;

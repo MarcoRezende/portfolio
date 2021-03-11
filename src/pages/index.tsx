@@ -5,15 +5,15 @@ import { HiOutlineAdjustments } from 'react-icons/hi';
 import makeAnimated from 'react-select/animated';
 import { motion } from 'framer-motion';
 import { FormHandles } from '@unform/core';
-import { Form } from '@unform/web';
 
 import Card from '../components/Card';
-import InputRadio, { Input } from '../components/FormComponents';
+import { Input, InputRadio } from '../components/FormComponents';
 
 import {
   Container,
-  InputContainer,
+  CustomForm,
   SearchBar,
+  FilterBar,
   Button,
   FilterContainer,
   SubmitButtonContainer,
@@ -27,9 +27,10 @@ import {
 } from '../styles/pages/Home';
 
 const Home: React.FC = () => {
-  const formRef = useRef<FormHandles>(null)
+  const formRef = useRef<FormHandles>(null);
   const [inputFocused, setInputFocused] = useState(false);
   const [isFilterOpened, setIsFilterOpened] = useState(false);
+  const [isSearchFocusedBar, setIsSearchFocusedBar] = useState(false);
   const [activeNavItem, setActiveNavItem] = useState('all');
   const [selectValue, setSelectValue] = useState('');
   const [animationState, setAnimationState] = useState('hidden');
@@ -48,6 +49,14 @@ const Home: React.FC = () => {
     setIsFilterOpened(!isFilterOpened);
   }, [isFilterOpened, animationState]);
 
+  const handleIsSearchBarFocused = useCallback(() => {
+    setIsSearchFocusedBar(true);
+  }, [isSearchFocusedBar]);
+
+  const handleIsSearchBarBlurred = useCallback(() => {
+    setIsSearchFocusedBar(false);
+  }, [isSearchFocusedBar]);
+
   const handleSelectValue = useCallback(value => {
     setSelectValue(JSON.stringify(value));
   }, []);
@@ -57,26 +66,29 @@ const Home: React.FC = () => {
   }, []);
 
   const variants = {
-    container: {
+    filterContainer: {
       hidden: { display: 'none' },
       visible: {
+        height: 'auto',
         opacity: 1,
         scale: 1,
         transition: {
-          delayChildren: 0.3,
-          staggerChildren: 0.2,
+          delayChildren: 0.2,
+          staggerChildren: 0.1,
         },
       },
       exit: { opacity: 0, height: 0, overflow: 'hidden' },
     },
-    item: {
+    filterItem: {
       hidden: { y: 20, opacity: 0 },
       visible: {
         y: 0,
         opacity: 1,
       },
+      exit: { y: 20, opacity: 0 },
     },
   };
+
   const radioOptions = {
     navBarItems: [
       { label: 'Todos', id: 'all', value: 'all' },
@@ -103,8 +115,13 @@ const Home: React.FC = () => {
         <h1>Projetos</h1>
         <p>Explore</p>
 
-        <Form ref={formRef} onSubmit={handleFilterOnSubmit}>
-          <InputContainer inputFocused={inputFocused}>
+        <CustomForm ref={formRef} onSubmit={handleFilterOnSubmit}>
+          <SearchBar
+            inputFocused={inputFocused}
+            isSearchFocusedBar={isSearchFocusedBar}
+            onClick={handleIsSearchBarFocused}
+            onBlur={handleIsSearchBarBlurred}
+          >
             <RiSearch2Line />
             <input
               type="text"
@@ -112,9 +129,9 @@ const Home: React.FC = () => {
               onFocus={handleOnFocus}
               onBlur={handleOnBlur}
             />
-          </InputContainer>
+          </SearchBar>
 
-          <SearchBar>
+          <FilterBar>
             <Button
               id="filter"
               type="button"
@@ -123,13 +140,17 @@ const Home: React.FC = () => {
               <HiOutlineAdjustments />
             </Button>
 
-            <InputRadio btnType="submit" name="navBarItems" options={radioOptions.navBarItems} />
+            <InputRadio
+              btnType="submit"
+              name="navBarItems"
+              options={radioOptions.navBarItems}
+            />
 
             <FilterContainer
               animate={isFilterOpened ? 'visible' : animationState}
-              variants={variants.container}
+              variants={variants.filterContainer}
             >
-              <FormGroup variants={variants.item}>
+              <FormGroup variants={variants.filterItem}>
                 <h2>Filtrar por data</h2>
 
                 <SelectGroup>
@@ -141,7 +162,7 @@ const Home: React.FC = () => {
                 </SelectGroup>
               </FormGroup>
 
-              <FormGroup variants={variants.item}>
+              <FormGroup variants={variants.filterItem}>
                 <h2>Filtrar por tag</h2>
                 <CustomSelect
                   onChange={handleSelectValue}
@@ -157,7 +178,7 @@ const Home: React.FC = () => {
                 <Input name="select" type="hidden" value={selectValue} />
               </FormGroup>
 
-              <FormGroup variants={variants.item}>
+              <FormGroup variants={variants.filterItem}>
                 <h2>Status</h2>
 
                 <SelectGroup>
@@ -171,52 +192,37 @@ const Home: React.FC = () => {
 
               <SubmitButtonContainer
                 onClick={() => handleIsFilterOpened()}
-                variants={variants.item}
+                variants={variants.filterItem}
               >
                 <Button type="submit">Filtrar</Button>
               </SubmitButtonContainer>
             </FilterContainer>
-          </SearchBar>
-        </Form>
+          </FilterBar>
+        </CustomForm>
 
         <CardsGrid>
-          <CustomCard
-            margin={1.6}
-            borderRadius="8px"
-            cardColor="#1a191d"
-            reflectColor="#3a3742"
-            reflection={3}
-            distanceRate={0.9}
-            applyBorderRadiusAll={false}
-            darkenRate={0.31}
-          >
-            <div>
-              <CardCover />
-              <CardDetails>
-                <h2>Titulo</h2>
-                <p>Curta descrição</p>
-              </CardDetails>
-            </div>
-          </CustomCard>
-
-          <CustomCard
-            margin={1.6}
-            borderRadius="8px"
-            cardColor="#1a191d"
-            reflectColor="#3a3742"
-            reflection={3}
-            distanceRate={0.9}
-            applyBorderRadiusAll={false}
-            darkenRate={0.31}
-          >
-            <div>
-              <CardCover />
-              <CardDetails>
-                <h2>Titulo</h2>
-                <p>Curta descrição</p>
-              </CardDetails>
-            </div>
-          </CustomCard>
+          {Array(10)
+            .fill(0)
+            .map(_ => (
+              <CustomCard
+                margin={0}
+                borderRadius="8px"
+                cardColor="#1a191d"
+                reflectColor="#3a3742"
+                reflection={3}
+                distanceRate={0.9}
+                applyBorderRadiusAll={false}
+                darkenRate={0.31}
+              >
+                <div>
+                  <CardCover />
+                  <CardDetails>
+                    <h2>Titulo</h2>
+                    <p>Curta descrição</p>
+                  </CardDetails>
+                </div>
+              </CustomCard>
+            ))}
         </CardsGrid>
       </Container>
     </>

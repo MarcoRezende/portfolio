@@ -1,13 +1,14 @@
 import styled, { css } from 'styled-components';
 import { darken } from 'polished';
 import Select from 'react-select';
-import { motion } from "framer-motion"
+import { motion } from 'framer-motion';
 import { Form } from '@unform/web';
 
 import Card from '../../components/Card';
 
-interface InputProps {
+interface SearchBarProps {
   inputFocused: boolean;
+  isSearchFocusedBar: boolean;
 }
 
 export const Container = styled.main`
@@ -20,13 +21,13 @@ export const Container = styled.main`
   overflow: hidden auto;
 
   h1 {
-    font-size: 5rem;
+    font-size: 4rem;
     color: ${props => props.theme.colors.text.primary};
     position: relative;
 
     &::after {
       content: '';
-      height: 3rem;
+      height: 2rem;
       width: 100%;
       top: 50%;
       display: block;
@@ -40,23 +41,43 @@ export const Container = styled.main`
     font-size: 1.6rem;
     text-decoration: underline;
     font-style: italic;
+    display: none;
   }
 `;
 
-export const InputContainer = styled.div<InputProps>`
+export const CustomForm = styled(Form)`
+  margin: 1rem 0;
+
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  align-items: center;
+  grid-gap: 0.8rem;
+
+  @media (max-width: 500px) {
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(2, 1fr);
+  }
+`;
+
+export const SearchBar = styled.div<SearchBarProps>`
   background: #131215;
   box-shadow: 0 5px 20px -5px rgb(0 0 0 / 50%);
   border: 3px solid transparent;
-  width: 100%;
-  height: 5rem;
+  width: 4rem;
+  height: 4rem;
   padding: 1rem;
-  margin: 1.5rem 0;
   border-radius: 20px;
 
   display: flex;
   align-items: center;
 
   transition: border 0.2s;
+
+  ${props =>
+    props.isSearchFocusedBar &&
+    css`
+      width: 100%;
+    `}
 
   ${props =>
     props.inputFocused &&
@@ -68,29 +89,35 @@ export const InputContainer = styled.div<InputProps>`
     box-shadow: 0 5px 0 #000;
   }
 
+  svg {
+    stroke: #d9c0de;
+    width: 2.5rem;
+    height: auto;
+    margin-right: 1rem;
+  }
+
   input {
+    display: none;
+
     height: 100%;
     background: transparent;
     border: 0;
     color: #fff;
+    font-size: 1.2rem;
 
-    display: flex;
     flex: 1;
+
+    @media (max-width: 500px) {
+      display: flex;
+    }
 
     &:focus {
       outline: 0;
     }
   }
-
-  svg {
-    stroke: #d9c0de;
-    width: 3rem;
-    height: auto;
-    margin-right: 1rem;
-  }
 `;
 
-export const SearchBar = styled.div`
+export const FilterBar = styled.div`
   position: relative;
   display: grid;
   grid-template-columns: 4rem repeat(3, minmax(0, 10rem));
@@ -123,6 +150,15 @@ export const SearchBar = styled.div`
       height: 2.3rem;
     }
   }
+
+  > button[type='submit'] label {
+    font-size: 1.4rem;
+    height: 4rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export const Button = styled.button`
@@ -131,7 +167,7 @@ export const Button = styled.button`
   padding: 0.2rem;
   border: 2px solid #6443e4;
   border-radius: 5px;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 800;
   color: ${props => props.theme.colors.text.primary};
 
@@ -139,7 +175,7 @@ export const Button = styled.button`
   flex: 1;
   align-items: center;
   justify-content: center;
-`
+`;
 
 export const FilterContainer = styled(motion.div)`
   box-shadow: 0 15px 15px -5px rgb(0 0 0 / 67%);
@@ -147,7 +183,7 @@ export const FilterContainer = styled(motion.div)`
   padding: 2rem;
   top: calc(100% + 2rem);
   width: 100%;
-  max-width: 40rem;
+  max-width: 35rem;
   z-index: 1;
   border-radius: 10px;
   background: #171212;
@@ -162,6 +198,41 @@ export const FilterContainer = styled(motion.div)`
     border-left: 1rem solid transparent;
     border-right: 1rem solid transparent;
     border-bottom: 1.2rem solid #171212;
+  }
+`;
+
+export const CustomSelect = styled(Select)`
+  .custom-select__control {
+    background: #171212;
+    color: #100f13;
+    font-size: 1.2rem;
+    border: 2px solid #3b3a42;
+    box-shadow: none;
+    transition: border-color 0.5s;
+
+    @media (max-width: 500px) {
+    }
+
+    &:hover {
+      border-color: #6443e4;
+    }
+  }
+
+  .custom-select__menu {
+    background: #171212;
+    color: ${props => props.theme.colors.text.primary};
+  }
+
+  .custom-select__option {
+    cursor: pointer;
+    font-size: 1.2rem;
+
+    @media (max-width: 500px) {
+    }
+  }
+
+  .custom-select__option--is-focused {
+    background: #6443e4;
   }
 `;
 
@@ -190,7 +261,7 @@ export const FormGroup = styled(motion.div)`
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 500;
   }
 
@@ -207,13 +278,27 @@ export const SelectGroup = styled.div`
   display: grid;
   grid-template-columns: 50% 1fr;
   grid-column-gap: 1rem;
+
+  button label {
+    font-size: 1.2rem;
+    height: 4rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 500px) {
+    }
+  }
 `;
 
 export const CardsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  grid-column-gap: 1rem;
+  width: 100%;
 
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 22rem));
+  justify-content: center;
+  grid-gap: 1rem;
 
   @media (max-width: 500px) {
     grid-template-columns: auto;
@@ -255,34 +340,7 @@ export const CardDetails = styled.div`
     font-size: 1.8rem;
 
     @media (max-width: 500px) {
-      font-size: 2.4rem;
+      font-size: 2rem;
     }
-  }
-`;
-
-export const CustomSelect = styled(Select)`
-  .custom-select__control {
-    background: #171212;
-    color: #100f13;
-    border: 2px solid #3b3a42;
-    box-shadow: none;
-    transition: border-color 0.5s;
-
-    &:hover {
-      border-color: #6443e4;
-    }
-  }
-
-  .custom-select__menu {
-    background: #171212;
-    color: ${props => props.theme.colors.text.primary};
-  }
-
-  .custom-select__option {
-    cursor: pointer;
-  }
-
-  .custom-select__option--is-focused {
-    background: #6443e4;
   }
 `;

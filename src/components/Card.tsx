@@ -1,3 +1,4 @@
+import React, { memo } from 'react';
 import { Container, Content, Reflection } from '../styles/components/Card';
 
 export interface CardProps {
@@ -14,40 +15,42 @@ export interface CardProps {
   darkenRate?: number;
 }
 
-const Card: React.SFC<CardProps> = ({
-  className,
-  cardColor,
-  reflectColor,
-  borderRadius,
-  margin,
-  reflection,
-  distanceRate,
-  applyBorderRadiusAll,
-  darkenRate,
-  children,
-}) => {
-  const reflections = Array(reflection).fill(0);
-  const [styles, features] = [
-    { cardColor, reflectColor, borderRadius, margin },
-    { reflection, distanceRate, applyBorderRadiusAll, darkenRate },
-  ];
+const Card: React.FC<CardProps> = memo(
+  ({
+    className,
+    cardColor,
+    reflectColor,
+    borderRadius,
+    margin,
+    reflection,
+    distanceRate,
+    applyBorderRadiusAll,
+    darkenRate,
+    children,
+  }) => {
+    const reflections = Array(reflection).fill(0);
+    const [styles, features] = [
+      { cardColor, reflectColor, borderRadius, margin },
+      { reflection, distanceRate, applyBorderRadiusAll, darkenRate },
+    ];
 
-  return (
-    <Container
-      className={className}
-      styles={styles}
-      features={features}
-      reflections={reflections}
-    >
-      {reflections.map((_, i) => (
-        <Reflection className="reflection" key={'reflection-' + i++} />
-      ))}
-      <Content styles={styles} features={features}>
-        {children}
-      </Content>
-    </Container>
-  );
-};
+    return (
+      <Container
+        className={className}
+        styles={styles}
+        features={features}
+        reflections={reflections}
+      >
+        {reflections.map((_, i) => (
+          <Reflection className="reflection" key={'reflection-' + i++} />
+        ))}
+        <Content styles={styles} features={features}>
+          {children}
+        </Content>
+      </Container>
+    );
+  },
+);
 
 Card.defaultProps = {
   className: '',
