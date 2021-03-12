@@ -2,13 +2,13 @@ import styled, { css } from 'styled-components';
 import { darken } from 'polished';
 
 export const InputRadioContainer = styled.button`
-  background: transparent;
-  border: 0;
-  color: ${props => props.theme.colors.text.primary};
+	background: transparent;
+	border: 0;
+	color: ${props => props.theme.colors.text.primary};
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
 	input[type='radio'] {
 		visibility: hidden;
@@ -23,7 +23,7 @@ export const InputRadioContainer = styled.button`
 		font-weight: 600;
 		text-align: center;
 		cursor: pointer;
-		transition-property: border background;
+		transition-property: border, background;
 		transition-duration: 0.5s;
 
 		&:hover {

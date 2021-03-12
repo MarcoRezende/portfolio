@@ -1,14 +1,25 @@
 import styled, { css } from 'styled-components';
 import { darken } from 'polished';
 import Select from 'react-select';
-import { motion } from 'framer-motion';
+import { motion, HTMLMotionProps } from 'framer-motion';
 import { Form } from '@unform/web';
 
 import Card from '../../components/Card';
+import OutsideClickWrapper, {
+  WrapperProps,
+} from '../../components/OutsideClickWrapper';
 
-interface SearchBarProps {
+interface InputFocusedProps {
+  searchBarFocused: boolean;
+}
+
+interface SearchBarProps extends WrapperProps {
   inputFocused: boolean;
-  isSearchFocusedBar: boolean;
+  isSearchBarFocused: boolean;
+}
+
+interface FilterBarMotion extends HTMLMotionProps {
+  searchBarFocused: boolean;
 }
 
 export const Container = styled.main`
@@ -45,13 +56,21 @@ export const Container = styled.main`
   }
 `;
 
-export const CustomForm = styled(Form)`
+export const CustomForm = styled(Form)<InputFocusedProps>`
   margin: 1rem 0;
+  min-height: 4rem;
+  overflow-x: hidden;
 
   display: grid;
   grid-template-columns: repeat(2, auto);
   align-items: center;
   grid-gap: 0.8rem;
+
+  ${props =>
+    props.searchBarFocused &&
+    css`
+      grid-template-columns: 100% 0;
+    `}
 
   @media (max-width: 500px) {
     grid-template-columns: 100%;
@@ -59,24 +78,26 @@ export const CustomForm = styled(Form)`
   }
 `;
 
-export const SearchBar = styled.div<SearchBarProps>`
+export const SearchBar = styled(OutsideClickWrapper)<SearchBarProps>`
   background: #131215;
   box-shadow: 0 5px 20px -5px rgb(0 0 0 / 50%);
   border: 3px solid transparent;
   width: 4rem;
   height: 4rem;
-  padding: 1rem;
+
   border-radius: 20px;
 
   display: flex;
   align-items: center;
+  justify-content: center;
 
   transition: border 0.2s;
 
   ${props =>
-    props.isSearchFocusedBar &&
+    props.isSearchBarFocused &&
     css`
       width: 100%;
+      padding: 1rem;
     `}
 
   ${props =>
@@ -84,6 +105,11 @@ export const SearchBar = styled.div<SearchBarProps>`
     css`
       border: 3px solid #893d8c;
     `}
+
+  @media (max-width: 500px) {
+    width: 100%;
+    padding: 1rem;
+  }
 
   &:focus {
     box-shadow: 0 5px 0 #000;
@@ -93,7 +119,16 @@ export const SearchBar = styled.div<SearchBarProps>`
     stroke: #d9c0de;
     width: 2.5rem;
     height: auto;
-    margin-right: 1rem;
+
+    ${props =>
+      props.isSearchBarFocused &&
+      css`
+        margin-right: 1rem;
+      `}
+
+    @media (max-width: 500px) {
+      margin-right: 1rem;
+    }
   }
 
   input {
@@ -107,6 +142,12 @@ export const SearchBar = styled.div<SearchBarProps>`
 
     flex: 1;
 
+    ${props =>
+      props.isSearchBarFocused &&
+      css`
+        display: flex;
+      `}
+
     @media (max-width: 500px) {
       display: flex;
     }
@@ -117,12 +158,21 @@ export const SearchBar = styled.div<SearchBarProps>`
   }
 `;
 
-export const FilterBar = styled.div`
+export const FilterBar = styled(motion.div)<FilterBarMotion>`
   position: relative;
   display: grid;
   grid-template-columns: 4rem repeat(3, minmax(0, 10rem));
   width: 100%;
   grid-gap: 0.8rem;
+
+  ${props =>
+    props.searchBarFocused &&
+    css`
+      transition-property: left, opacity;
+      transition-duration: 0.5s;
+      left: 100%;
+      opacity: 0;
+    `}
 
   button#filter,
   button.active {
@@ -135,7 +185,7 @@ export const FilterBar = styled.div`
     position: relative;
     border-radius: 50%;
     width: 100%;
-    transition-property: background border-color;
+    transition-property: background, border-color;
     transition-duration: 0.5s;
 
     &:hover {
@@ -242,7 +292,7 @@ export const SubmitButtonContainer = styled(motion.div)`
     border-color: #6443e4;
     width: 100%;
     margin-top: 2rem;
-    transition-property: border background;
+    transition-property: border, background;
     transition-duration: 0.5s;
 
     &:hover {

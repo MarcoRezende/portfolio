@@ -30,7 +30,7 @@ const Home: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const [inputFocused, setInputFocused] = useState(false);
   const [isFilterOpened, setIsFilterOpened] = useState(false);
-  const [isSearchFocusedBar, setIsSearchFocusedBar] = useState(false);
+  const [isSearchBarFocused, setIsSearchBarFocused] = useState(false);
   const [activeNavItem, setActiveNavItem] = useState('all');
   const [selectValue, setSelectValue] = useState('');
   const [animationState, setAnimationState] = useState('hidden');
@@ -49,13 +49,12 @@ const Home: React.FC = () => {
     setIsFilterOpened(!isFilterOpened);
   }, [isFilterOpened, animationState]);
 
-  const handleIsSearchBarFocused = useCallback(() => {
-    setIsSearchFocusedBar(true);
-  }, [isSearchFocusedBar]);
-
-  const handleIsSearchBarBlurred = useCallback(() => {
-    setIsSearchFocusedBar(false);
-  }, [isSearchFocusedBar]);
+  const handleIsSearchBarFocused = useCallback(
+    state => {
+      setIsSearchBarFocused(state);
+    },
+    [isSearchBarFocused],
+  );
 
   const handleSelectValue = useCallback(value => {
     setSelectValue(JSON.stringify(value));
@@ -66,6 +65,16 @@ const Home: React.FC = () => {
   }, []);
 
   const variants = {
+    filterbar: {
+      start: { x: 0 },
+      end: {
+        y: 99999,
+        transition: {
+          delayChildren: 0.2,
+          staggerChildren: 0.1,
+        },
+      },
+    },
     filterContainer: {
       hidden: { display: 'none' },
       visible: {
@@ -115,12 +124,16 @@ const Home: React.FC = () => {
         <h1>Projetos</h1>
         <p>Explore</p>
 
-        <CustomForm ref={formRef} onSubmit={handleFilterOnSubmit}>
+        <CustomForm
+          searchBarFocused={isSearchBarFocused}
+          ref={formRef}
+          onSubmit={handleFilterOnSubmit}
+        >
           <SearchBar
             inputFocused={inputFocused}
-            isSearchFocusedBar={isSearchFocusedBar}
-            onClick={handleIsSearchBarFocused}
-            onBlur={handleIsSearchBarBlurred}
+            isSearchBarFocused={isSearchBarFocused}
+            onClickOutside={() => handleIsSearchBarFocused(false)}
+            onClickInside={() => handleIsSearchBarFocused(true)}
           >
             <RiSearch2Line />
             <input
@@ -131,7 +144,11 @@ const Home: React.FC = () => {
             />
           </SearchBar>
 
-          <FilterBar>
+          <FilterBar
+            animate={isSearchBarFocused ? 'end' : 'start'}
+            variants={variants.filterContainer}
+            searchBarFocused={isSearchBarFocused}
+          >
             <Button
               id="filter"
               type="button"
@@ -203,8 +220,9 @@ const Home: React.FC = () => {
         <CardsGrid>
           {Array(10)
             .fill(0)
-            .map(_ => (
+            .map((_, i) => (
               <CustomCard
+                key={'card-' + i}
                 margin={0}
                 borderRadius="8px"
                 cardColor="#1a191d"
