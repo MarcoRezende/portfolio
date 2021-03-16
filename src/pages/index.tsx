@@ -193,8 +193,6 @@ const Home: React.FC = () => {
             motionAnimation
             isSearchBarFocused={isSearchBarFocused}
             inputFocused={inputFocused}
-            animate={isSearchBarFocused ? 'end' : 'start'}
-            variants={variants.searchBarContainer}
           >
             <input
               type="text"

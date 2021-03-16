@@ -12,6 +12,11 @@ interface SearchBarProps {
   inputFocused: boolean;
 }
 
+const SearchBarContainerExpandAnimation = keyframes`
+  from { width: 4rem };
+  to { width: 100% }
+`;
+
 export const Container = styled.main`
   height: 100%;
   padding: 0 2rem 4rem;
@@ -50,10 +55,12 @@ export const CustomForm = styled(Form)<CustomFormProps>`
   margin: 1rem 0;
 
   display: flex;
+  flex-direction: column-reverse;
   align-items: center;
 
-  @media (max-width: 500px) {
-    flex-direction: column-reverse;
+  @media (min-width: 550px) {
+    flex-direction: row;
+    position: relative;
   }
 `;
 
@@ -61,8 +68,9 @@ export const SearchBar = styled(OutsideClickWrapper)<SearchBarProps>`
   background: #131215;
   box-shadow: 0 5px 20px -5px rgb(0 0 0 / 50%);
   border: 3px solid transparent;
-  width: 4rem;
+  width: 100%;
   height: 4rem;
+  margin-bottom: 1rem;
 
   border-radius: 20px;
 
@@ -80,8 +88,16 @@ export const SearchBar = styled(OutsideClickWrapper)<SearchBarProps>`
       border: 3px solid #893d8c;
     `}
 
-  @media (max-width: 500px) {
-    width: 100%;
+  @media (min-width: 550px) {
+    width: 4rem;
+    max-width: 22rem;
+    margin: 0 0 0 0.8rem;
+
+    ${props =>
+      props.isSearchBarFocused &&
+      css`
+        animation: ${SearchBarContainerExpandAnimation} 0.5s forwards;
+      `}
   }
 
   &:focus {
@@ -92,21 +108,18 @@ export const SearchBar = styled(OutsideClickWrapper)<SearchBarProps>`
     stroke: #d9c0de;
     width: 2.5rem;
     height: auto;
+    margin: 0 1rem;
 
-    ${props =>
-      props.isSearchBarFocused &&
-      css`
-        margin: 0 1rem;
-      `}
-
-    @media (max-width: 500px) {
-      margin: 0 1rem;
+    @media (min-width: 550px) {
+      ${props =>
+        !props.isSearchBarFocused &&
+        css`
+          margin: 0;
+        `}
     }
   }
 
   input {
-    display: none;
-
     height: 100%;
     background: transparent;
     border: 0;
@@ -114,17 +127,15 @@ export const SearchBar = styled(OutsideClickWrapper)<SearchBarProps>`
     font-size: 1.2rem;
     margin-left: 1rem;
 
+    display: flex;
     flex: 1;
 
-    ${props =>
-      props.isSearchBarFocused &&
-      css`
-        display: flex;
-      `}
-
-    @media (max-width: 500px) {
-      display: flex;
-    }
+    @media (min-width: 550px) {
+      ${props =>
+        !props.isSearchBarFocused &&
+        css`
+          display: none;
+        `}
 
     &:focus {
       outline: 0;
@@ -132,14 +143,16 @@ export const SearchBar = styled(OutsideClickWrapper)<SearchBarProps>`
   }
 `;
 
-export const FilterBar = styled(motion.div)<FilterBarProps>`
+export const FilterBar = styled(motion.div)`
   position: relative;
   display: grid;
   grid-template-columns: 4rem repeat(3, minmax(0, 10rem));
   width: 100%;
   grid-gap: 0.8rem;
 
-  ${props => props.shouldDisappear && css``}
+  @media (min-width: 550px) {
+    position: initial;
+  }
 
   button#filter,
   button.active {
@@ -227,9 +240,6 @@ export const CustomSelect = styled(Select)`
     box-shadow: none;
     transition: border-color 0.5s;
 
-    @media (max-width: 500px) {
-    }
-
     &:hover {
       border-color: #6443e4;
     }
@@ -303,9 +313,6 @@ export const SelectGroup = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-
-    @media (max-width: 500px) {
-    }
   }
 `;
 
@@ -313,25 +320,25 @@ export const CardsGrid = styled.div`
   width: 100%;
 
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(0, 22rem));
+  grid-template-columns: auto;
   justify-content: center;
   grid-gap: 1rem;
 
-  @media (max-width: 500px) {
-    grid-template-columns: auto;
+  @media (min-width: 500px) {
+    grid-template-columns: repeat(auto-fit, minmax(0, 22rem));
   }
 `;
 
 export const CustomCard = styled(Card)`
-  width: 22rem;
+  width: 30rem;
   box-shadow: 0 21px 15px -14px #000;
 
   > div {
     width: 100%;
   }
 
-  @media (max-width: 500px) {
-    width: 30rem;
+  @media (min-width: 500px) {
+    width: 22rem;
   }
 `;
 
@@ -341,10 +348,10 @@ export const CardCover = styled.div`
   background-position: center;
 
   width: 100%;
-  height: 18rem;
+  height: 25rem;
 
-  @media (max-width: 500px) {
-    height: 25rem;
+  @media (min-width: 500px) {
+    height: 18rem;
   }
 `;
 
@@ -354,10 +361,10 @@ export const CardDetails = styled.div`
   height: 10rem;
 
   h2 {
-    font-size: 1.8rem;
+    font-size: 2rem;
 
-    @media (max-width: 500px) {
-      font-size: 2rem;
+    @media (min-width: 500px) {
+      font-size: 1.8rem;
     }
   }
 `;
