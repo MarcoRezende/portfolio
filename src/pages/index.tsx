@@ -69,22 +69,6 @@ const Home: React.FC = () => {
       start: { width: '4rem' },
       end: { width: '100%' },
     },
-    filterBarContainer: {
-      start: {
-        width: '100%',
-        left: 0,
-        opacity: 1,
-        gridTemplateColumns: '4rem repeat(3, minmax(0, 10rem))',
-        gridGap: '0.8rem',
-      },
-      end: {
-        width: 0,
-        left: '100%',
-        opacity: 0,
-        gridTemplateColumns: 'repeat(4, 0)',
-        gridGap: 0,
-      },
-    },
     filterContainer: {
       hidden: { display: 'none' },
       visible: {
@@ -134,34 +118,8 @@ const Home: React.FC = () => {
         <h1>Projetos</h1>
         <p>Explore</p>
 
-        <CustomForm
-          shouldRegroup={isSearchBarFocused}
-          ref={formRef}
-          onSubmit={handleFilterOnSubmit}
-        >
-          <SearchBar
-            onClickOutside={() => handleIsSearchBarFocused(false)}
-            onClickInside={() => handleIsSearchBarFocused(true)}
-            motionAnimation
-            isSearchBarFocused={isSearchBarFocused}
-            inputFocused={inputFocused}
-            animate={isSearchBarFocused ? 'end' : 'start'}
-            variants={variants.searchBarContainer}
-          >
-            <RiSearch2Line />
-            <input
-              type="text"
-              placeholder="Pesquise um projeto"
-              onFocus={handleOnFocus}
-              onBlur={handleOnBlur}
-            />
-          </SearchBar>
-
-          <FilterBar
-            shouldDisappear={isSearchBarFocused}
-            animate={isSearchBarFocused ? 'end' : 'start'}
-            variants={variants.filterBarContainer}
-          >
+        <CustomForm ref={formRef} onSubmit={handleFilterOnSubmit}>
+          <FilterBar>
             <Button
               id="filter"
               type="button"
@@ -228,6 +186,24 @@ const Home: React.FC = () => {
               </SubmitButtonContainer>
             </FilterContainer>
           </FilterBar>
+
+          <SearchBar
+            onClickOutside={() => handleIsSearchBarFocused(false)}
+            onClickInside={() => handleIsSearchBarFocused(true)}
+            motionAnimation
+            isSearchBarFocused={isSearchBarFocused}
+            inputFocused={inputFocused}
+            animate={isSearchBarFocused ? 'end' : 'start'}
+            variants={variants.searchBarContainer}
+          >
+            <input
+              type="text"
+              placeholder="Pesquise um projeto"
+              onFocus={handleOnFocus}
+              onBlur={handleOnBlur}
+            />
+            <RiSearch2Line />
+          </SearchBar>
         </CustomForm>
 
         <CardsGrid>

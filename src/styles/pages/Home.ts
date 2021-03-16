@@ -7,17 +7,9 @@ import { Form } from '@unform/web';
 import Card from '../../components/Card';
 import OutsideClickWrapper from '../../components/OutsideClickWrapper';
 
-interface CustomFormProps {
-  shouldRegroup?: boolean;
-}
-
 interface SearchBarProps {
   isSearchBarFocused: boolean;
   inputFocused: boolean;
-}
-
-interface FilterBarProps {
-  shouldDisappear?: boolean;
 }
 
 export const Container = styled.main`
@@ -56,16 +48,12 @@ export const Container = styled.main`
 
 export const CustomForm = styled(Form)<CustomFormProps>`
   margin: 1rem 0;
-  min-height: 4rem;
 
-  display: grid;
-  grid-template-columns: 1fr auto;
+  display: flex;
   align-items: center;
-  grid-gap: 0.8rem;
 
   @media (max-width: 500px) {
-    grid-template-columns: 100%;
-    grid-template-rows: repeat(2, 1fr);
+    flex-direction: column-reverse;
   }
 `;
 
@@ -94,7 +82,6 @@ export const SearchBar = styled(OutsideClickWrapper)<SearchBarProps>`
 
   @media (max-width: 500px) {
     width: 100%;
-    padding: 1rem;
   }
 
   &:focus {
@@ -109,11 +96,11 @@ export const SearchBar = styled(OutsideClickWrapper)<SearchBarProps>`
     ${props =>
       props.isSearchBarFocused &&
       css`
-        margin-right: 1rem;
+        margin: 0 1rem;
       `}
 
     @media (max-width: 500px) {
-      margin-right: 1rem;
+      margin: 0 1rem;
     }
   }
 
@@ -125,6 +112,7 @@ export const SearchBar = styled(OutsideClickWrapper)<SearchBarProps>`
     border: 0;
     color: #fff;
     font-size: 1.2rem;
+    margin-left: 1rem;
 
     flex: 1;
 
