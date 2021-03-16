@@ -6,11 +6,14 @@ import makeAnimated from 'react-select/animated';
 import { motion } from 'framer-motion';
 import { FormHandles } from '@unform/core';
 
+import Profile from '../components/Profile';
+import Contacts from '../components/Contacts';
 import Card from '../components/Card';
 import { Input, InputRadio } from '../components/FormComponents';
 
 import {
   Container,
+  Main,
   CustomForm,
   SearchBar,
   FilterBar,
@@ -113,122 +116,127 @@ const Home: React.FC = () => {
       <Head>
         <title>Create Next App</title>
       </Head>
-
       <Container>
-        <h1>Projetos</h1>
-        <p>Explore</p>
+        <Profile />
 
-        <CustomForm ref={formRef} onSubmit={handleFilterOnSubmit}>
-          <FilterBar>
-            <Button
-              id="filter"
-              type="button"
-              onClick={() => handleIsFilterOpened()}
-            >
-              <HiOutlineAdjustments />
-            </Button>
+        <Main>
+          <h1>Projetos</h1>
+          <p>Explore</p>
 
-            <InputRadio
-              btnType="submit"
-              name="navBarItems"
-              options={radioOptions.navBarItems}
-            />
-
-            <FilterContainer
-              animate={isFilterOpened ? 'visible' : animationState}
-              variants={variants.filterContainer}
-            >
-              <FormGroup variants={variants.filterItem}>
-                <h2>Filtrar por data</h2>
-
-                <SelectGroup>
-                  <InputRadio
-                    name="sortByDate"
-                    options={radioOptions.sortByDate}
-                    isFilterOpened={isFilterOpened}
-                  />
-                </SelectGroup>
-              </FormGroup>
-
-              <FormGroup variants={variants.filterItem}>
-                <h2>Filtrar por tag</h2>
-                <CustomSelect
-                  onChange={handleSelectValue}
-                  components={makeAnimated()}
-                  instanceId="customSelect"
-                  classNamePrefix="custom-select"
-                  isMulti
-                  options={[
-                    { value: 'react', label: 'React' },
-                    { value: 'node', label: 'Node' },
-                  ]}
-                />
-                <Input name="select" type="hidden" value={selectValue} />
-              </FormGroup>
-
-              <FormGroup variants={variants.filterItem}>
-                <h2>Status</h2>
-
-                <SelectGroup>
-                  <InputRadio
-                    name="sortByStatus"
-                    options={radioOptions.sortByStatus}
-                    isFilterOpened={isFilterOpened}
-                  />
-                </SelectGroup>
-              </FormGroup>
-
-              <SubmitButtonContainer
+          <CustomForm ref={formRef} onSubmit={handleFilterOnSubmit}>
+            <FilterBar>
+              <Button
+                id="filter"
+                type="button"
                 onClick={() => handleIsFilterOpened()}
-                variants={variants.filterItem}
               >
-                <Button type="submit">Filtrar</Button>
-              </SubmitButtonContainer>
-            </FilterContainer>
-          </FilterBar>
+                <HiOutlineAdjustments />
+              </Button>
 
-          <SearchBar
-            onClickOutside={() => handleIsSearchBarFocused(false)}
-            onClickInside={() => handleIsSearchBarFocused(true)}
-            motionAnimation
-            isSearchBarFocused={isSearchBarFocused}
-            inputFocused={inputFocused}
-          >
-            <input
-              type="text"
-              placeholder="Pesquise um projeto"
-              onFocus={handleOnFocus}
-              onBlur={handleOnBlur}
-            />
-            <RiSearch2Line />
-          </SearchBar>
-        </CustomForm>
+              <InputRadio
+                btnType="submit"
+                name="navBarItems"
+                options={radioOptions.navBarItems}
+              />
 
-        <CardsGrid>
-          {Array(10)
-            .fill(0)
-            .map((_, i) => (
-              <CustomCard
-                key={'card-' + i}
-                margin={0}
-                borderRadius="8px"
-                cardColor="#1a191d"
-                reflectColor="#3a3742"
-                reflection={3}
-                distanceRate={0.9}
-                applyBorderRadiusAll={false}
-                darkenRate={0.31}
+              <FilterContainer
+                animate={isFilterOpened ? 'visible' : animationState}
+                variants={variants.filterContainer}
               >
-                <div>
-                  <CardCover />
-                  <CardDetails>
-                    <h2>Titulo</h2>
-                    <p>Curta descrição</p>
-                  </CardDetails>
-                </div>
-              </CustomCard>
-            ))}
-        </CardsGrid>
+                <FormGroup variants={variants.filterItem}>
+                  <h2>Filtrar por data</h2>
+
+                  <SelectGroup>
+                    <InputRadio
+                      name="sortByDate"
+                      options={radioOptions.sortByDate}
+                      isFilterOpened={isFilterOpened}
+                    />
+                  </SelectGroup>
+                </FormGroup>
+
+                <FormGroup variants={variants.filterItem}>
+                  <h2>Filtrar por tag</h2>
+                  <CustomSelect
+                    onChange={handleSelectValue}
+                    components={makeAnimated()}
+                    instanceId="customSelect"
+                    classNamePrefix="custom-select"
+                    isMulti
+                    options={[
+                      { value: 'react', label: 'React' },
+                      { value: 'node', label: 'Node' },
+                    ]}
+                  />
+                  <Input name="select" type="hidden" value={selectValue} />
+                </FormGroup>
+
+                <FormGroup variants={variants.filterItem}>
+                  <h2>Status</h2>
+
+                  <SelectGroup>
+                    <InputRadio
+                      name="sortByStatus"
+                      options={radioOptions.sortByStatus}
+                      isFilterOpened={isFilterOpened}
+                    />
+                  </SelectGroup>
+                </FormGroup>
+
+                <SubmitButtonContainer
+                  onClick={() => handleIsFilterOpened()}
+                  variants={variants.filterItem}
+                >
+                  <Button type="submit">Filtrar</Button>
+                </SubmitButtonContainer>
+              </FilterContainer>
+            </FilterBar>
+
+            <SearchBar
+              onClickOutside={() => handleIsSearchBarFocused(false)}
+              onClickInside={() => handleIsSearchBarFocused(true)}
+              motionAnimation
+              isSearchBarFocused={isSearchBarFocused}
+              inputFocused={inputFocused}
+            >
+              <input
+                type="text"
+                placeholder="Pesquise um projeto"
+                onFocus={handleOnFocus}
+                onBlur={handleOnBlur}
+              />
+              <RiSearch2Line />
+            </SearchBar>
+          </CustomForm>
+
+          <CardsGrid>
+            {Array(10)
+              .fill(0)
+              .map((_, i) => (
+                <CustomCard
+                  key={'card-' + i}
+                  margin={0}
+                  borderRadius="8px"
+                  cardColor="#1a191d"
+                  reflectColor="#3a3742"
+                  reflection={3}
+                  distanceRate={0.9}
+                  applyBorderRadiusAll={false}
+                  darkenRate={0.31}
+                >
+                  <div>
+                    <CardCover />
+                    <CardDetails>
+                      <h2>Titulo</h2>
+                      <p>Curta descrição</p>
+                    </CardDetails>
+                  </div>
+                </CustomCard>
+              ))}
+          </CardsGrid>
+        </Main>
+
+        <Contacts />
       </Container>
     </>
   );

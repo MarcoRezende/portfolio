@@ -17,7 +17,19 @@ const SearchBarContainerExpandAnimation = keyframes`
   to { width: 100% }
 `;
 
-export const Container = styled.main`
+export const Container = styled.div`
+  height: 100%;
+
+  display: grid;
+  grid-template-columns: 0 100% 0;
+  overflow: hidden;
+
+  @media (min-width: 960px) {
+    grid-template-columns: 30rem 1fr 0;
+  }
+`;
+
+export const Main = styled.main`
   height: 100%;
   padding: 0 2rem 4rem;
 
