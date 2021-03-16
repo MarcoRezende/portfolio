@@ -1,56 +1,69 @@
 import { useEffect, useRef } from 'react';
+import { motion, MotionProps } from 'framer-motion';
 
 export interface WrapperProps {
-	className?: string;
+  className?: string;
 
-	as?: string;
+  as?: string;
+  motionAnimation?: boolean;
 
-	onClickInside?(): any | void;
-	onClickOutside?(): any | void;
+  onClickInside?(): any | void;
+  onClickOutside?(): any | void;
 }
 
-const OutsideClickWrapper: React.FC<WrapperProps> = ({
-	className,
-	children,
-	as: tagName,
-	onClickInside,
-	onClickOutside,
+const OutsideClickWrapper: React.FC<WrapperProps & MotionProps> = ({
+  className,
+  children,
+  as: tagName,
+  motionAnimation,
+  onClickInside,
+  onClickOutside,
+  ...rest
 }) => {
-	// const Wrapper = tagName as keyof JSX.IntrinsicElements;
-	const wrapperRef = useRef<HTMLDivElement>(null);
+  // const Wrapper = tagName as keyof JSX.IntrinsicElements;
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
-	useEffect(() => {
-		document.addEventListener('click', handleClick);
+  useEffect(() => {
+    document.addEventListener('click', handleClick);
 
-		return () => {
-			document.removeEventListener('click', handleClick);
-		};
-	}, []);
+    return () => {
+      document.removeEventListener('click', handleClick);
+    };
+  }, []);
 
-	const handleClick = (e: MouseEvent) => {
-		return wrapperRef.current.contains(e.target as Node)
-			? onClickInside()
-			: onClickOutside();
-	};
+  const handleClick = (e: MouseEvent) => {
+    return wrapperRef.current.contains(e.target as Node)
+      ? onClickInside()
+      : onClickOutside();
+  };
 
-	return (
-		<div ref={wrapperRef} className={className}>
-			{children}
-		</div>
-	);
+  return (
+    <>
+      {motionAnimation ? (
+        <motion.div ref={wrapperRef} className={className} {...rest}>
+          {children}
+        </motion.div>
+      ) : (
+        <div ref={wrapperRef} className={className}>
+          {children}
+        </div>
+      )}
+    </>
+  );
 };
 
 OutsideClickWrapper.defaultProps = {
-	className: '',
+  className: '',
 
-	as: 'div',
+  as: 'div',
+  motionAnimation: false,
 
-	onClickInside: () => {
-		return;
-	},
-	onClickOutside: () => {
-		return;
-	},
+  onClickInside: () => {
+    return;
+  },
+  onClickOutside: () => {
+    return;
+  },
 };
 
 export default OutsideClickWrapper;

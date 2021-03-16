@@ -65,14 +65,24 @@ const Home: React.FC = () => {
   }, []);
 
   const variants = {
-    filterbar: {
-      start: { x: 0 },
+    searchBarContainer: {
+      start: { width: '4rem' },
+      end: { width: '100%' },
+    },
+    filterBarContainer: {
+      start: {
+        width: '100%',
+        left: 0,
+        opacity: 1,
+        gridTemplateColumns: '4rem repeat(3, minmax(0, 10rem))',
+        gridGap: '0.8rem',
+      },
       end: {
-        y: 99999,
-        transition: {
-          delayChildren: 0.2,
-          staggerChildren: 0.1,
-        },
+        width: 0,
+        left: '100%',
+        opacity: 0,
+        gridTemplateColumns: 'repeat(4, 0)',
+        gridGap: 0,
       },
     },
     filterContainer: {
@@ -125,15 +135,18 @@ const Home: React.FC = () => {
         <p>Explore</p>
 
         <CustomForm
-          searchBarFocused={isSearchBarFocused}
+          shouldRegroup={isSearchBarFocused}
           ref={formRef}
           onSubmit={handleFilterOnSubmit}
         >
           <SearchBar
-            inputFocused={inputFocused}
-            isSearchBarFocused={isSearchBarFocused}
             onClickOutside={() => handleIsSearchBarFocused(false)}
             onClickInside={() => handleIsSearchBarFocused(true)}
+            motionAnimation
+            isSearchBarFocused={isSearchBarFocused}
+            inputFocused={inputFocused}
+            animate={isSearchBarFocused ? 'end' : 'start'}
+            variants={variants.searchBarContainer}
           >
             <RiSearch2Line />
             <input
@@ -145,9 +158,9 @@ const Home: React.FC = () => {
           </SearchBar>
 
           <FilterBar
+            shouldDisappear={isSearchBarFocused}
             animate={isSearchBarFocused ? 'end' : 'start'}
-            variants={variants.filterContainer}
-            searchBarFocused={isSearchBarFocused}
+            variants={variants.filterBarContainer}
           >
             <Button
               id="filter"

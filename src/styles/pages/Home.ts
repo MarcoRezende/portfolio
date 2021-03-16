@@ -1,25 +1,23 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { darken } from 'polished';
 import Select from 'react-select';
-import { motion, HTMLMotionProps } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Form } from '@unform/web';
 
 import Card from '../../components/Card';
-import OutsideClickWrapper, {
-  WrapperProps,
-} from '../../components/OutsideClickWrapper';
+import OutsideClickWrapper from '../../components/OutsideClickWrapper';
 
-interface InputFocusedProps {
-  searchBarFocused: boolean;
+interface CustomFormProps {
+  shouldRegroup?: boolean;
 }
 
-interface SearchBarProps extends WrapperProps {
-  inputFocused: boolean;
+interface SearchBarProps {
   isSearchBarFocused: boolean;
+  inputFocused: boolean;
 }
 
-interface FilterBarMotion extends HTMLMotionProps {
-  searchBarFocused: boolean;
+interface FilterBarProps {
+  shouldDisappear?: boolean;
 }
 
 export const Container = styled.main`
@@ -56,21 +54,14 @@ export const Container = styled.main`
   }
 `;
 
-export const CustomForm = styled(Form)<InputFocusedProps>`
+export const CustomForm = styled(Form)<CustomFormProps>`
   margin: 1rem 0;
   min-height: 4rem;
-  overflow-x: hidden;
 
   display: grid;
-  grid-template-columns: repeat(2, auto);
+  grid-template-columns: 1fr auto;
   align-items: center;
   grid-gap: 0.8rem;
-
-  ${props =>
-    props.searchBarFocused &&
-    css`
-      grid-template-columns: 100% 0;
-    `}
 
   @media (max-width: 500px) {
     grid-template-columns: 100%;
@@ -93,12 +84,7 @@ export const SearchBar = styled(OutsideClickWrapper)<SearchBarProps>`
 
   transition: border 0.2s;
 
-  ${props =>
-    props.isSearchBarFocused &&
-    css`
-      width: 100%;
-      padding: 1rem;
-    `}
+  ${props => props.isSearchBarFocused && css``}
 
   ${props =>
     props.inputFocused &&
@@ -158,21 +144,14 @@ export const SearchBar = styled(OutsideClickWrapper)<SearchBarProps>`
   }
 `;
 
-export const FilterBar = styled(motion.div)<FilterBarMotion>`
+export const FilterBar = styled(motion.div)<FilterBarProps>`
   position: relative;
   display: grid;
   grid-template-columns: 4rem repeat(3, minmax(0, 10rem));
   width: 100%;
   grid-gap: 0.8rem;
 
-  ${props =>
-    props.searchBarFocused &&
-    css`
-      transition-property: left, opacity;
-      transition-duration: 0.5s;
-      left: 100%;
-      opacity: 0;
-    `}
+  ${props => props.shouldDisappear && css``}
 
   button#filter,
   button.active {
