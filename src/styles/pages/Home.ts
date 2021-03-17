@@ -38,6 +38,11 @@ export const Main = styled.main`
   flex-direction: column;
   overflow: hidden auto;
 
+  @media (min-width: 960px) {
+    box-shadow: 0 0 15px -5px rgb(0 0 0 / 39%);
+    padding: 0 10rem 4rem;
+  }
+
   h1 {
     font-size: 4rem;
     color: ${props => props.theme.colors.text.primary};
@@ -337,12 +342,12 @@ export const CardsGrid = styled.div`
   grid-gap: 1rem;
 
   @media (min-width: 500px) {
-    grid-template-columns: repeat(auto-fit, minmax(0, 22rem));
+    grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
   }
 `;
 
 export const CustomCard = styled(Card)`
-  width: 30rem;
+  width: 18rem;
   box-shadow: 0 21px 15px -14px #000;
 
   > div {
@@ -351,6 +356,10 @@ export const CustomCard = styled(Card)`
 
   @media (min-width: 500px) {
     width: 22rem;
+  }
+
+  @media (min-width: 960px) {
+    width: 100%;
   }
 `;
 
