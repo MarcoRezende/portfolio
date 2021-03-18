@@ -1,8 +1,15 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { darken } from 'polished';
+import { motion } from 'framer-motion';
+
+interface ListItemProps {
+	knowlegdeRate: number;
+}
 
 export const Container = styled.aside`
-	padding-bottom: 4rem;
 	background: #232227;
+	overflow: hidden;
+	display: grid;
 `;
 
 export const Header = styled.header`
@@ -76,9 +83,11 @@ export const Socials = styled.div`
 `;
 
 export const UserInformation = styled.div`
-	padding: 1rem 1rem 0;
+	padding: 2rem;
+	overflow: hidden auto;
+	height: 100%;
 
-	p {
+	> p {
 		border-left: 5px solid;
 		padding: 1rem;
 		font-size: 1.2rem;
@@ -92,20 +101,105 @@ export const Achievements = styled.div`
 
 export const List = styled.ul`
 	margin: 1rem 0;
+
+	li {
+		font-size: 1.2rem;
+
+		display: grid;
+		align-items: center;
+
+		> svg {
+			width: 2rem;
+			height: auto;
+		}
+	}
+
+	li + li {
+		margin-top: 0.5rem;
+	}
 `;
 
 export const ListItem = styled.li`
-	font-size: 1.2rem;
-	display: flex;
-	align-items: center;
+	grid-template-columns: auto 1fr;
+	grid-column-gap: 0.5rem;
+`;
 
-	& + & {
-		margin-top: 0.5rem;
+export const ListItemComplex = styled.li<ListItemProps>`
+	grid-template-columns: auto 1fr 5rem auto;
+	grid-template-rows: repeat(2, auto);
+	grid-gap: 1rem 0.5rem;
+	grid-template-areas:
+		'skill-icon skill-name skill-rate arrow'
+		'skill-summary skill-summary skill-summary skill-summary';
+
+	> svg:nth-of-type(1) {
+		grid-area: skill-icon;
 	}
 
-	svg {
-		margin-right: 0.5rem;
-		width: 2rem;
-		height: auto;
+	> span {
+		grid-area: skill-name;
+	}
+
+	> div:nth-of-type(1) {
+		grid-area: skill-rate;
+
+		width: 100%;
+		height: 0.5em;
+		background: #45454a;
+		border-radius: 10px;
+		position: relative;
+		overflow: hidden;
+
+		&:after {
+			content: '';
+			height: 100%;
+			display: block;
+			position: absolute;
+
+			${props =>
+				props.knowlegdeRate &&
+				css`
+					width: ${props.knowlegdeRate}%;
+					background: ${darken(props.knowlegdeRate / 1000, '#522de1')};
+				`}
+		}
+	}
+
+	> svg:nth-of-type(2) {
+		grid-area: arrow;
+
+		grid-area: arrow;
+		cursor: pointer;
+		margin-left: 1rem;
+	}
+
+	> div:nth-of-type(2) {
+		grid-area: skill-summary;
+	}
+`;
+
+export const SkillSummary = styled(motion.div)`
+	text-align: justify;
+
+	> * {
+		margin-bottom: 1rem;
+	}
+
+	span {
+		border-top: 3px solid #46b358;
+		background: #34333a;
+		box-shadow: 0 3px 10px -4px rgb(0 0 0 / 45%);
+		width: 100%;
+		padding: 0.5rem;
+
+		display: flex;
+		align-items: center;
+
+		svg {
+			stroke: #46b358;
+			height: 2rem;
+			width: auto;
+			margin-right: 0.5rem;
+		}
 	}
 `;

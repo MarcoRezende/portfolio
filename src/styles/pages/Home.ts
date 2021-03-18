@@ -4,6 +4,8 @@ import Select from 'react-select';
 import { motion } from 'framer-motion';
 import { Form } from '@unform/web';
 
+import Profile from '../../components/Profile';
+import Contacts from '../../components/Contacts';
 import Card from '../../components/Card';
 import OutsideClickWrapper from '../../components/OutsideClickWrapper';
 
@@ -67,6 +69,17 @@ export const Main = styled.main`
     display: none;
   }
 `;
+
+export const UserProfile = styled(Profile)`
+  position: relative;
+  right: 999rem;
+
+  @media (min-width: 960px) {
+    right: 0;
+  }
+`;
+
+export const UserContacts = styled(Contacts)``;
 
 export const CustomForm = styled(Form)<CustomFormProps>`
   margin: 1rem 0;
@@ -342,12 +355,16 @@ export const CardsGrid = styled.div`
   grid-gap: 1rem;
 
   @media (min-width: 500px) {
+    grid-template-columns: repeat(auto-fit, 22rem);
+  }
+
+  @media (min-width: 960px) {
     grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
   }
 `;
 
 export const CustomCard = styled(Card)`
-  width: 18rem;
+  width: 30rem;
   box-shadow: 0 21px 15px -14px #000;
 
   > div {

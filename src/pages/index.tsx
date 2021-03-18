@@ -6,14 +6,14 @@ import makeAnimated from 'react-select/animated';
 import { motion } from 'framer-motion';
 import { FormHandles } from '@unform/core';
 
-import Profile from '../components/Profile';
-import Contacts from '../components/Contacts';
 import Card from '../components/Card';
 import { Input, InputRadio } from '../components/FormComponents';
 
 import {
   Container,
   Main,
+  UserProfile,
+  UserContacts,
   CustomForm,
   SearchBar,
   FilterBar,
@@ -117,7 +117,7 @@ const Home: React.FC = () => {
         <title>Create Next App</title>
       </Head>
       <Container>
-        <Profile />
+        <UserProfile />
 
         <Main>
           <h1>Projetos</h1>
@@ -236,7 +236,7 @@ const Home: React.FC = () => {
           </CardsGrid>
         </Main>
 
-        <Contacts />
+        <UserContacts />
       </Container>
     </>
   );
