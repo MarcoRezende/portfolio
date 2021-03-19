@@ -5,12 +5,14 @@ export const Container = styled.nav`
 	background: ${props => props.theme.colors.background.navbar};
 	box-shadow: 0 10px 30px 0px rgb(0 0 0 / 50%);
 	position: relative;
+	z-index: 3;
 `;
 
 export const Links = styled.div`
-	width: 100%;
 	height: 100%;
 	position: absolute;
+	transform: translateX(50%);
+	right: 50%;
 	bottom: 50%;
 
 	display: flex;

@@ -6,7 +6,6 @@ import { RiLinkedinLine, RiArrowDropDownFill } from 'react-icons/ri';
 import { SiMailDotRu, SiJavascript } from 'react-icons/si';
 import { IoLanguageSharp } from 'react-icons/io5';
 import { HiShieldExclamation } from 'react-icons/hi';
-import { IoIosArrowDown } from 'react-icons/io';
 
 interface ProfileProps {
 	className?: string;
@@ -25,9 +24,8 @@ import {
 	ListItem,
 	ListItemComplex,
 	SkillSummary,
+	ArrowDownIcon,
 } from '../styles/components/Profile';
-
-const MotionedArrowDown = motion.custom(IoIosArrowDown);
 
 const variants = {
 	skillSummaryContainer: {
@@ -49,7 +47,7 @@ const variants = {
 			opacity: 1,
 		},
 	},
-	arrowDownIcon: { transform: 'rotate(180deg)' },
+	arrowDownIcon: { rotate: { transform: 'rotate(180deg)' } },
 };
 
 const Profile: React.FC<ProfileProps> = ({ className = '' }) => {
@@ -145,11 +143,9 @@ const Profile: React.FC<ProfileProps> = ({ className = '' }) => {
 								<SiJavascript />
 								<span>{skill.name}</span>
 								<div />
-								<MotionedArrowDown
+								<ArrowDownIcon
 									onClick={() => handleOpenedSkill(skill.name)}
-									animate={
-										openedSkill.includes(skill.name) && variants.arrowDownIcon
-									}
+									animate={openedSkill.includes(skill.name)}
 								/>
 								<SkillSummary
 									animate={
@@ -183,11 +179,9 @@ const Profile: React.FC<ProfileProps> = ({ className = '' }) => {
 								<SiJavascript />
 								<span>{skill.name}</span>
 								<div />
-								<MotionedArrowDown
+								<ArrowDownIcon
 									onClick={() => handleOpenedSkill(skill.name)}
-									animate={
-										openedSkill.includes(skill.name) && variants.arrowDownIcon
-									}
+									animate={openedSkill.includes(skill.name)}
 								/>
 								<SkillSummary
 									animate={

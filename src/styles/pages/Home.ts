@@ -34,6 +34,7 @@ export const Container = styled.div`
 export const Main = styled.main`
   height: 100%;
   padding: 0 2rem 4rem;
+  z-index: 2;
 
   display: flex;
   align-items: center;

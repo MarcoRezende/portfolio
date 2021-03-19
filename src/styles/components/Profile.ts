@@ -2,14 +2,21 @@ import styled, { css } from 'styled-components';
 import { darken } from 'polished';
 import { motion } from 'framer-motion';
 
+import { IoIosArrowDown } from 'react-icons/io';
+
 interface ListItemProps {
 	knowlegdeRate: number;
+}
+
+interface ArrowDownIconProps {
+	animate: boolean;
 }
 
 export const Container = styled.aside`
 	background: #232227;
 	overflow: hidden;
 	display: grid;
+	grid-template-rows: auto 1fr;
 `;
 
 export const Header = styled.header`
@@ -202,4 +209,16 @@ export const SkillSummary = styled(motion.div)`
 			margin-right: 0.5rem;
 		}
 	}
+`;
+
+export const ArrowDownIcon = styled(IoIosArrowDown)<ArrowDownIconProps>`
+	transform: rotate(0);
+	transition: transform 0.5s ease;
+
+	${props =>
+		props.animate &&
+		css`
+			transform: rotate(180deg);
+			transition: transform 0.5s ease;
+		`}
 `;
