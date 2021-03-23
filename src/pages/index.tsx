@@ -1,13 +1,11 @@
-import { useCallback, useState, useRef, useEffect } from 'react';
+import { useCallback, useState, useRef, MouseEvent } from 'react';
 import Head from 'next/head';
 import makeAnimated from 'react-select/animated';
-import { motion } from 'framer-motion';
 import { FormHandles } from '@unform/core';
 
 import { RiSearch2Line } from 'react-icons/ri';
 import { HiOutlineAdjustments } from 'react-icons/hi';
 
-import Card from '../components/Card';
 import { Input, InputRadio } from '../components/FormComponents';
 
 import {
@@ -26,6 +24,7 @@ import {
   CustomSelect,
   CardsGrid,
   CustomCard,
+  CardContent,
   CardCover,
   CardDetails,
 } from '../styles/pages/Home';
@@ -44,34 +43,20 @@ interface ProjectProps {
 
 const Home: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const cardContent = useRef<HTMLDivElement>(null);
 
   const [inputFocused, setInputFocused] = useState(false);
   const [isFilterOpened, setIsFilterOpened] = useState(false);
   const [isSearchBarFocused, setIsSearchBarFocused] = useState(false);
-  const [activeNavItem, setActiveNavItem] = useState('all');
   const [selectValue, setSelectValue] = useState('');
   const [animationState, setAnimationState] = useState('hidden');
-  const [isCardContentHovered, setIsCardContentHovered] = useState(false);
+  const [hoveredCardContent, setHoveredCardContent] = useState([]);
 
-  useEffect(() => {
-    cardContent.current.addEventListener('mouseover', handleMouseOverEvent);
-    cardContent.current.addEventListener('mouseout', handleMouseOutEvent);
-
-    return () => {
-      document.removeEventListener('mouseover', handleMouseOverEvent);
-      document.removeEventListener('mouseout', handleMouseOutEvent);
-    };
+  const handleHoveredCardContentMouseOver = useCallback((e: MouseEvent) => {
+    setHoveredCardContent([e.currentTarget.id]);
   }, []);
 
-  const handleMouseOverEvent = useCallback(() => {
-    setIsCardContentHovered(true);
-    console.log('over');
-  }, []);
-
-  const handleMouseOutEvent = useCallback(() => {
-    setIsCardContentHovered(false);
-    console.log('out');
+  const handleHoveredCardContentMouseOut = useCallback(() => {
+    setHoveredCardContent([]);
   }, []);
 
   const handleOnFocus = useCallback(() => {
@@ -129,10 +114,6 @@ const Home: React.FC = () => {
       },
       exit: { y: 20, opacity: 0 },
     },
-    cardDetailsContainer: {
-      hidden: { opacity: 0, visibility: 'hidden', y: -10 },
-      visible: { opacity: 1, visibility: 'visible', y: 0 },
-    },
   };
 
   const radioOptions = {
@@ -173,9 +154,12 @@ const Home: React.FC = () => {
       shortDescription:
         'Aplicação para reunir e organizar livros em seções/estantes.',
       cover: {
-        low: '',
-        medium: '',
-        high: '',
+        low:
+          'https://marcorezendebackup.github.io/portfolio/imgs/my-reads-cover-low.png',
+        medium:
+          'https://marcorezendebackup.github.io/portfolio/imgs/my-reads-cover-medium.png',
+        high:
+          'https://marcorezendebackup.github.io/portfolio/imgs/my-reads-cover-high.png',
       },
     },
     {
@@ -185,9 +169,12 @@ const Home: React.FC = () => {
       shortDescription:
         'Site para vender conteudo musical, como drum kits, presets para plugins e muito mais.',
       cover: {
-        low: '',
-        medium: '',
-        high: '',
+        low:
+          'https://marcorezendebackup.github.io/portfolio/imgs/beats-cover-low.png',
+        medium:
+          'https://marcorezendebackup.github.io/portfolio/imgs/beats-cover-medium.png',
+        high:
+          'https://marcorezendebackup.github.io/portfolio/imgs/beats-cover-high.png',
       },
     },
   ];
@@ -303,16 +290,17 @@ const Home: React.FC = () => {
                 applyBorderRadiusAll={false}
                 darkenRate={0.31}
               >
-                <div ref={cardContent}>
+                <CardContent>
                   <CardCover />
                   <CardDetails
-                    animate={isCardContentHovered ? 'visible' : 'hidden'}
-                    variants={variants.cardDetailsContainer}
+                    shouldAnimate={hoveredCardContent.includes(
+                      'card-content-' + project.id,
+                    )}
                   >
                     <h2>{project.name}</h2>
                     <p>{project.shortDescription}</p>
                   </CardDetails>
-                </div>
+                </CardContent>
               </CustomCard>
             ))}
           </CardsGrid>

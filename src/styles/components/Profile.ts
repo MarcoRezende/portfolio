@@ -10,7 +10,7 @@ interface ListItemComplexProps {
 }
 
 interface ArrowDownIconProps {
-	animate: boolean;
+	shouldAnimate: boolean;
 }
 
 export const Container = styled.aside`
@@ -225,7 +225,7 @@ export const ArrowDownIcon = styled(IoIosArrowDown)<ArrowDownIconProps>`
 	transition: transform 0.5s ease;
 
 	${props =>
-		props.animate &&
+		props.shouldAnimate &&
 		css`
 			transform: rotate(180deg);
 			transition: transform 0.5s ease;

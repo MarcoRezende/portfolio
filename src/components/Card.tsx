@@ -1,8 +1,9 @@
-import React, { memo } from 'react';
+import React, { memo, HTMLAttributes, Ref } from 'react';
 import { Container, Content, Reflection } from '../styles/components/Card';
 
 export interface CardProps {
   className?: string;
+  ref?: Ref<HTMLDivElement>;
 
   cardColor?: string;
   reflectColor?: string;
@@ -15,7 +16,7 @@ export interface CardProps {
   darkenRate?: number;
 }
 
-const Card: React.FC<CardProps> = memo(
+const Card: React.FC<CardProps & HTMLAttributes<HTMLDivElement>> = memo(
   ({
     className,
     cardColor,
@@ -27,6 +28,7 @@ const Card: React.FC<CardProps> = memo(
     applyBorderRadiusAll,
     darkenRate,
     children,
+    ...rest
   }) => {
     const reflections = Array(reflection).fill(0);
     const [styles, features] = [
@@ -40,6 +42,7 @@ const Card: React.FC<CardProps> = memo(
         styles={styles}
         features={features}
         reflections={reflections}
+        {...rest}
       >
         {reflections.map((_, i) => (
           <Reflection className="reflection" key={'reflection-' + i++} />

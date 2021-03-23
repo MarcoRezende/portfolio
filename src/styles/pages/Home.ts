@@ -15,9 +15,18 @@ interface SearchBarProps {
   inputFocused: boolean;
 }
 
-const SearchBarContainerExpandAnimation = keyframes`
+interface CardDetailsProps {
+  shouldAnimate: boolean;
+}
+
+const searchBarContainerExpandAnimation = keyframes`
   from { width: 4rem };
   to { width: 100% }
+`;
+
+const cardContainerAnimation = keyframes`
+  from { transform: scale(0); opacity: 0 };
+  to { transform: scale(1); opacity: 1 };
 `;
 
 export const Container = styled.div`
@@ -85,7 +94,7 @@ export const UserProfile = styled(Profile)`
 
 export const UserContacts = styled(Contacts)``;
 
-export const CustomForm = styled(Form)<CustomFormProps>`
+export const CustomForm = styled(Form)`
   margin: 1rem 0;
 
   display: flex;
@@ -130,7 +139,7 @@ export const SearchBar = styled(OutsideClickWrapper)<SearchBarProps>`
     ${props =>
       props.isSearchBarFocused &&
       css`
-        animation: ${SearchBarContainerExpandAnimation} 0.5s forwards;
+        animation: ${searchBarContainerExpandAnimation} 0.5s forwards;
       `}
   }
 
@@ -171,8 +180,9 @@ export const SearchBar = styled(OutsideClickWrapper)<SearchBarProps>`
           display: none;
         `}
 
-    &:focus {
-      outline: 0;
+      &:focus {
+        outline: 0;
+      }
     }
   }
 `;
@@ -401,10 +411,19 @@ export const CustomCard = styled(Card)`
     .reflection:nth-of-type(3) {
       display: none;
     }
+  }
+`;
 
-    .reflection:nth-of-type(4) {
-      box-shadow: none;
-    }
+export const CardContent = styled.div`
+  @media (min-width: 960px) {
+    box-shadow: none;
+    position: relative;
+    height: 18rem;
+    padding: 1rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;
 
@@ -421,34 +440,32 @@ export const CardCover = styled.div`
   }
 
   @media (min-width: 960px) {
-    /*&:hover + div {
-      bottom: 0;
-      opacity: 1;
-      visibility: visible;
-
-      transition-property: bottom, opacity, visibility;
-      transition-duration: 0.5s;
-    }*/
+    position: absolute;
+    bottom: 0;
   }
 `;
 
-export const CardDetails = styled(motion.div)`
+export const CardDetails = styled(motion.div)<CardDetailsProps>`
   text-align: center;
   padding: 1rem;
   height: 10rem;
 
   @media (min-width: 960px) {
-    position: absolute;
     width: 100%;
     height: auto;
-    /*bottom: -5rem;*/
-    opacity: 0;
-    visibility: hidden;
     background: #323039;
     box-shadow: 0 1px 20px 0px rgb(0 0 0 / 78%);
+    transform: scale(0);
+    opacity: 0;
 
-    /*transition-property: bottom, opacity, visibility;
-    transition-duration: 0.5s;*/
+    transition: transform 0.5s ease, opacity 0.3s ease;
+
+    ${CardContent}:hover & {
+      transform: scale(1);
+      opacity: 1;
+
+      transition: transform 0.5s ease, opacity 0.3s ease;
+    }
   }
 
   h2 {
@@ -461,6 +478,10 @@ export const CardDetails = styled(motion.div)`
 
   p {
     font-size: 1.4rem;
-    ${ellipsis('100%', 5)}
+    ${ellipsis('100%', 3)}
+
+    @media (min-width: 960px) {
+      ${ellipsis('100%', 5)}
+    }
   }
 `;

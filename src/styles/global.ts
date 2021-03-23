@@ -39,4 +39,8 @@ export default createGlobalStyle`
     display: grid;
     grid-template-rows: 1fr 6rem;
   }
+
+  .preload * {
+    animation: none !important;
+  }
 `;
