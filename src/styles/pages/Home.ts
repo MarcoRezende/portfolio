@@ -421,18 +421,18 @@ export const CardCover = styled.div`
   }
 
   @media (min-width: 960px) {
-    &:hover + div {
+    /*&:hover + div {
       bottom: 0;
       opacity: 1;
       visibility: visible;
 
       transition-property: bottom, opacity, visibility;
       transition-duration: 0.5s;
-    }
+    }*/
   }
 `;
 
-export const CardDetails = styled.div`
+export const CardDetails = styled(motion.div)`
   text-align: center;
   padding: 1rem;
   height: 10rem;
@@ -441,14 +441,14 @@ export const CardDetails = styled.div`
     position: absolute;
     width: 100%;
     height: auto;
-    bottom: -5rem;
+    /*bottom: -5rem;*/
     opacity: 0;
     visibility: hidden;
     background: #323039;
     box-shadow: 0 1px 20px 0px rgb(0 0 0 / 78%);
 
-    transition-property: bottom, opacity, visibility;
-    transition-duration: 0.5s;
+    /*transition-property: bottom, opacity, visibility;
+    transition-duration: 0.5s;*/
   }
 
   h2 {

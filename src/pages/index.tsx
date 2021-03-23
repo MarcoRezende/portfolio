@@ -44,12 +44,35 @@ interface ProjectProps {
 
 const Home: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const cardContent = useRef<HTMLDivElement>(null);
+
   const [inputFocused, setInputFocused] = useState(false);
   const [isFilterOpened, setIsFilterOpened] = useState(false);
   const [isSearchBarFocused, setIsSearchBarFocused] = useState(false);
   const [activeNavItem, setActiveNavItem] = useState('all');
   const [selectValue, setSelectValue] = useState('');
   const [animationState, setAnimationState] = useState('hidden');
+  const [isCardContentHovered, setIsCardContentHovered] = useState(false);
+
+  useEffect(() => {
+    cardContent.current.addEventListener('mouseover', handleMouseOverEvent);
+    cardContent.current.addEventListener('mouseout', handleMouseOutEvent);
+
+    return () => {
+      document.removeEventListener('mouseover', handleMouseOverEvent);
+      document.removeEventListener('mouseout', handleMouseOutEvent);
+    };
+  }, []);
+
+  const handleMouseOverEvent = useCallback(() => {
+    setIsCardContentHovered(true);
+    console.log('over');
+  }, []);
+
+  const handleMouseOutEvent = useCallback(() => {
+    setIsCardContentHovered(false);
+    console.log('out');
+  }, []);
 
   const handleOnFocus = useCallback(() => {
     setInputFocused(true);
@@ -105,6 +128,10 @@ const Home: React.FC = () => {
         opacity: 1,
       },
       exit: { y: 20, opacity: 0 },
+    },
+    cardDetailsContainer: {
+      hidden: { opacity: 0, visibility: 'hidden', y: -10 },
+      visible: { opacity: 1, visibility: 'visible', y: 0 },
     },
   };
 
@@ -276,9 +303,12 @@ const Home: React.FC = () => {
                 applyBorderRadiusAll={false}
                 darkenRate={0.31}
               >
-                <div>
+                <div ref={cardContent}>
                   <CardCover />
-                  <CardDetails>
+                  <CardDetails
+                    animate={isCardContentHovered ? 'visible' : 'hidden'}
+                    variants={variants.cardDetailsContainer}
+                  >
                     <h2>{project.name}</h2>
                     <p>{project.shortDescription}</p>
                   </CardDetails>
