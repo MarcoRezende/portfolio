@@ -1,8 +1,9 @@
 import styled, { css, keyframes } from 'styled-components';
-import { darken } from 'polished';
+import { darken, ellipsis } from 'polished';
 import Select from 'react-select';
 import { motion } from 'framer-motion';
 import { Form } from '@unform/web';
+import SimpleBar from 'simplebar-react';
 
 import Profile from '../../components/Profile';
 import Contacts from '../../components/Contacts';
@@ -31,14 +32,10 @@ export const Container = styled.div`
   }
 `;
 
-export const Main = styled.main`
+export const Main = styled(SimpleBar)`
   height: 100%;
   padding: 0 2rem 4rem;
   z-index: 2;
-
-  display: flex;
-  align-items: center;
-  flex-direction: column;
   overflow: hidden auto;
 
   @media (min-width: 960px) {
@@ -46,28 +43,34 @@ export const Main = styled.main`
     padding: 0 10rem 4rem;
   }
 
-  h1 {
-    font-size: 4rem;
-    color: ${props => props.theme.colors.text.primary};
-    position: relative;
+  .simplebar-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 
-    &::after {
-      content: '';
-      height: 2rem;
-      width: 100%;
-      top: 50%;
-      display: block;
-      position: absolute;
-      background: #29756e;
-      z-index: -9;
+    h1 {
+      font-size: 4rem;
+      color: ${props => props.theme.colors.text.primary};
+      position: relative;
+
+      &::after {
+        content: '';
+        height: 2rem;
+        width: 100%;
+        top: 50%;
+        display: block;
+        position: absolute;
+        background: #29756e;
+        z-index: -9;
+      }
     }
-  }
 
-  > p {
-    font-size: 1.6rem;
-    text-decoration: underline;
-    font-style: italic;
-    display: none;
+    > p {
+      font-size: 1.6rem;
+      text-decoration: underline;
+      font-style: italic;
+      display: none;
+    }
   }
 `;
 
@@ -196,12 +199,14 @@ export const FilterBar = styled(motion.div)`
     position: relative;
     border-radius: 50%;
     width: 100%;
+
     transition-property: background, border-color;
     transition-duration: 0.5s;
 
     &:hover {
       border-color: ${darken(0.05, '#6443e4')};
       background: ${darken(0.05, '#6443e4')};
+
       transition: all 0.5s;
     }
 
@@ -269,6 +274,7 @@ export const CustomSelect = styled(Select)`
     font-size: 1.2rem;
     border: 2px solid #3b3a42;
     box-shadow: none;
+
     transition: border-color 0.5s;
 
     &:hover {
@@ -300,6 +306,7 @@ export const SubmitButtonContainer = styled(motion.div)`
     border-color: #6443e4;
     width: 100%;
     margin-top: 2rem;
+
     transition-property: border, background;
     transition-duration: 0.5s;
 
@@ -361,6 +368,7 @@ export const CardsGrid = styled.div`
 
   @media (min-width: 960px) {
     grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+    grid-gap: 2rem 4rem;
   }
 `;
 
@@ -378,6 +386,25 @@ export const CustomCard = styled(Card)`
 
   @media (min-width: 960px) {
     width: 100%;
+    margin: 1rem 0;
+    box-shadow: none;
+
+    .reflection:nth-of-type(1) {
+      width: 100%;
+      bottom: -2rem;
+      left: 2rem;
+      background: #323039;
+      box-shadow: 0 -9px 5px -10px rgb(0 0 0 / 60%);
+    }
+
+    .reflection:nth-of-type(2),
+    .reflection:nth-of-type(3) {
+      display: none;
+    }
+
+    .reflection:nth-of-type(4) {
+      box-shadow: none;
+    }
   }
 `;
 
@@ -392,6 +419,17 @@ export const CardCover = styled.div`
   @media (min-width: 500px) {
     height: 18rem;
   }
+
+  @media (min-width: 960px) {
+    &:hover + div {
+      bottom: 0;
+      opacity: 1;
+      visibility: visible;
+
+      transition-property: bottom, opacity, visibility;
+      transition-duration: 0.5s;
+    }
+  }
 `;
 
 export const CardDetails = styled.div`
@@ -399,11 +437,30 @@ export const CardDetails = styled.div`
   padding: 1rem;
   height: 10rem;
 
+  @media (min-width: 960px) {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    bottom: -5rem;
+    opacity: 0;
+    visibility: hidden;
+    background: #323039;
+    box-shadow: 0 1px 20px 0px rgb(0 0 0 / 78%);
+
+    transition-property: bottom, opacity, visibility;
+    transition-duration: 0.5s;
+  }
+
   h2 {
     font-size: 2rem;
 
     @media (min-width: 500px) {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
     }
+  }
+
+  p {
+    font-size: 1.4rem;
+    ${ellipsis('100%', 5)}
   }
 `;

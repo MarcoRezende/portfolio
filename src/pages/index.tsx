@@ -1,10 +1,11 @@
 import { useCallback, useState, useRef, useEffect } from 'react';
 import Head from 'next/head';
-import { RiSearch2Line } from 'react-icons/ri';
-import { HiOutlineAdjustments } from 'react-icons/hi';
 import makeAnimated from 'react-select/animated';
 import { motion } from 'framer-motion';
 import { FormHandles } from '@unform/core';
+
+import { RiSearch2Line } from 'react-icons/ri';
+import { HiOutlineAdjustments } from 'react-icons/hi';
 
 import Card from '../components/Card';
 import { Input, InputRadio } from '../components/FormComponents';
@@ -28,6 +29,18 @@ import {
   CardCover,
   CardDetails,
 } from '../styles/pages/Home';
+
+interface ProjectProps {
+  id: string;
+  name: string;
+  color: string;
+  shortDescription: string;
+  cover: {
+    low: string;
+    medium: string;
+    high: string;
+  };
+}
 
 const Home: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
@@ -110,6 +123,47 @@ const Home: React.FC = () => {
       { label: 'Em Progresso', id: 'inProgress', value: 'inProgress' },
     ],
   };
+
+  const fakeProjectsData: ProjectProps[] = [
+    {
+      id: '1',
+      name: 'Wiki Game',
+      color: '#ab418a',
+      shortDescription: 'Jogo de navegador baseado no conteudo da Wikipedia.',
+      cover: {
+        low:
+          'https://marcorezendebackup.github.io/portfolio/imgs/wiki-game-cover-low.png',
+        medium:
+          'https://marcorezendebackup.github.io/portfolio/imgs/wiki-game-cover-medium.png',
+        high:
+          'https://marcorezendebackup.github.io/portfolio/imgs/wiki-game-cover-high.png',
+      },
+    },
+    {
+      id: '2',
+      name: 'My Reads',
+      color: '#ab418a',
+      shortDescription:
+        'Aplicação para reunir e organizar livros em seções/estantes.',
+      cover: {
+        low: '',
+        medium: '',
+        high: '',
+      },
+    },
+    {
+      id: '3',
+      name: 'Beats',
+      color: '#ab418a',
+      shortDescription:
+        'Site para vender conteudo musical, como drum kits, presets para plugins e muito mais.',
+      cover: {
+        low: '',
+        medium: '',
+        high: '',
+      },
+    },
+  ];
 
   return (
     <>
@@ -210,29 +264,27 @@ const Home: React.FC = () => {
           </CustomForm>
 
           <CardsGrid>
-            {Array(10)
-              .fill(0)
-              .map((_, i) => (
-                <CustomCard
-                  key={'card-' + i}
-                  margin={0}
-                  borderRadius="8px"
-                  cardColor="#1a191d"
-                  reflectColor="#3a3742"
-                  reflection={3}
-                  distanceRate={0.9}
-                  applyBorderRadiusAll={false}
-                  darkenRate={0.31}
-                >
-                  <div>
-                    <CardCover />
-                    <CardDetails>
-                      <h2>Titulo</h2>
-                      <p>Curta descrição</p>
-                    </CardDetails>
-                  </div>
-                </CustomCard>
-              ))}
+            {fakeProjectsData.map(project => (
+              <CustomCard
+                key={'card-' + project.id}
+                margin={0}
+                borderRadius="8px"
+                cardColor="#1a191d"
+                reflectColor="#3a3742"
+                reflection={3}
+                distanceRate={0.9}
+                applyBorderRadiusAll={false}
+                darkenRate={0.31}
+              >
+                <div>
+                  <CardCover />
+                  <CardDetails>
+                    <h2>{project.name}</h2>
+                    <p>{project.shortDescription}</p>
+                  </CardDetails>
+                </div>
+              </CustomCard>
+            ))}
           </CardsGrid>
         </Main>
 

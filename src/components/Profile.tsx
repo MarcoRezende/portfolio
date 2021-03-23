@@ -11,6 +11,8 @@ interface ProfileProps {
 	className?: string;
 }
 
+import 'simplebar/dist/simplebar.min.css';
+
 import {
 	Container,
 	Header,
@@ -38,7 +40,11 @@ const variants = {
 				staggerChildren: 0.2,
 			},
 		},
-		visible: { height: 'auto', opacity: 1, overflow: 'visible' },
+		visible: {
+			height: 'auto',
+			opacity: 1,
+			overflow: 'visible',
+		},
 	},
 	skillSummaryItem: {
 		hidden: { x: -30, opacity: 0 },
@@ -181,7 +187,7 @@ const Profile: React.FC<ProfileProps> = ({ className = '' }) => {
 								<div />
 								<ArrowDownIcon
 									onClick={() => handleOpenedSkill(skill.name)}
-									animate={openedSkill.includes(skill.name)}
+									animate={false}
 								/>
 								<SkillSummary
 									animate={

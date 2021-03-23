@@ -1,10 +1,11 @@
 import styled, { css } from 'styled-components';
 import { darken } from 'polished';
 import { motion } from 'framer-motion';
+import SimpleBar from 'simplebar-react';
 
 import { IoIosArrowDown } from 'react-icons/io';
 
-interface ListItemProps {
+interface ListItemComplexProps {
 	knowlegdeRate: number;
 }
 
@@ -82,6 +83,14 @@ export const Socials = styled.div`
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		transform: scale(1);
+		transition: 0.2s transform ease;
+
+		&:hover {
+			transform: scale(1.1);
+			box-shadow: 0 3px 15px -1px rgb(0 0 0 / 90%);
+			transition: 0.5s all ease;
+		}
 
 		svg {
 			stroke: #34333a;
@@ -89,12 +98,12 @@ export const Socials = styled.div`
 	}
 `;
 
-export const UserInformation = styled.div`
+export const UserInformation = styled(SimpleBar)`
 	padding: 2rem;
 	overflow: hidden auto;
 	height: 100%;
 
-	> p {
+	p {
 		border-left: 5px solid;
 		padding: 1rem;
 		font-size: 1.2rem;
@@ -131,10 +140,10 @@ export const ListItem = styled.li`
 	grid-column-gap: 0.5rem;
 `;
 
-export const ListItemComplex = styled.li<ListItemProps>`
+export const ListItemComplex = styled.li<ListItemComplexProps>`
 	grid-template-columns: auto 1fr 5rem auto;
 	grid-template-rows: repeat(2, auto);
-	grid-gap: 1rem 0.5rem;
+	grid-column-gap: 0.5rem;
 	grid-template-areas:
 		'skill-icon skill-name skill-rate arrow'
 		'skill-summary skill-summary skill-summary skill-summary';
@@ -164,7 +173,6 @@ export const ListItemComplex = styled.li<ListItemProps>`
 			position: absolute;
 
 			${props =>
-				props.knowlegdeRate &&
 				css`
 					width: ${props.knowlegdeRate}%;
 					background: ${darken(props.knowlegdeRate / 1000, '#522de1')};
@@ -188,11 +196,8 @@ export const ListItemComplex = styled.li<ListItemProps>`
 export const SkillSummary = styled(motion.div)`
 	text-align: justify;
 
-	> * {
-		margin-bottom: 1rem;
-	}
-
 	span {
+		margin: 1rem 0;
 		border-top: 3px solid #46b358;
 		background: #34333a;
 		box-shadow: 0 3px 10px -4px rgb(0 0 0 / 45%);
@@ -208,6 +213,10 @@ export const SkillSummary = styled(motion.div)`
 			width: auto;
 			margin-right: 0.5rem;
 		}
+	}
+
+	p {
+		margin-bottom: 1rem;
 	}
 `;
 
