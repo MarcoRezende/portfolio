@@ -151,7 +151,7 @@ const Profile: React.FC<ProfileProps> = ({ className = '' }) => {
                 <div />
                 <ArrowDownIcon
                   onClick={() => handleOpenedSkill(skill.name)}
-                  shouldAnimate={openedSkill.includes(skill.name)}
+                  $shouldAnimate={openedSkill.includes(skill.name)}
                 />
                 <SkillSummary
                   animate={
@@ -187,7 +187,7 @@ const Profile: React.FC<ProfileProps> = ({ className = '' }) => {
                 <div />
                 <ArrowDownIcon
                   onClick={() => handleOpenedSkill(skill.name)}
-                  shouldAnimate={openedSkill.includes(skill.name)}
+                  $shouldAnimate={openedSkill.includes(skill.name)}
                 />
                 <SkillSummary
                   animate={

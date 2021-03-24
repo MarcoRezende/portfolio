@@ -4,13 +4,14 @@ import { motion } from 'framer-motion';
 import SimpleBar from 'simplebar-react';
 
 import { IoIosArrowDown } from 'react-icons/io';
+import { IconBaseProps } from 'react-icons';
 
 interface ListItemComplexProps {
   knowledgeRate: number;
 }
 
-interface ArrowDownIconProps {
-  shouldAnimate: boolean;
+interface ArrowDownIconProps extends IconBaseProps {
+  $shouldAnimate: boolean;
 }
 
 export const Container = styled.aside`
@@ -228,7 +229,7 @@ export const ArrowDownIcon = styled(IoIosArrowDown)<ArrowDownIconProps>`
   transition: transform 0.5s ease;
 
   ${props =>
-    props.shouldAnimate &&
+    props.$shouldAnimate &&
     css`
       transform: rotate(180deg);
       transition: transform 0.5s ease;
