@@ -29,6 +29,17 @@ const searchBarContainerExpandAnimation = keyframes`
   to { width: 100% }
 `;
 
+const cardCoverVisibleAnimation = keyframes`
+  0% {  transform: scale(1); }
+  50% {  transform: scale(1.3); }
+  100% {  transform: scale(1.2); }
+`;
+
+const cardCoverHideAnimation = keyframes`
+  from {  transform: scale(1.2); }
+  to {  transform: scale(1); }
+`;
+
 export const Container = styled.div`
   height: 100%;
 
@@ -423,11 +434,11 @@ export const CardContent = styled.div`
     box-shadow: none;
     position: relative;
     height: 18rem;
-    padding: 1rem;
+    overflow: hidden;
 
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
   }
 `;
 
@@ -445,29 +456,39 @@ export const CardCover = styled(Img)`
   @media (min-width: 960px) {
     position: absolute;
     bottom: 0;
+    transform: scale(1);
+
+    animation: ${cardCoverHideAnimation} 0.5s forwards;
+
+    ${CardContent}:hover & {
+      animation: ${cardCoverVisibleAnimation} 1s forwards;
+    }
   }
 `;
 
 export const CardDetails = styled(motion.div)<CardDetailsProps>`
   text-align: center;
-  padding: 1rem;
+  padding: 2rem;
   height: 10rem;
 
   @media (min-width: 960px) {
+    text-align: justify;
     width: 100%;
     height: auto;
-    background: #323039;
+    background: #1a191d;
     box-shadow: 0 1px 20px 0px rgb(0 0 0 / 78%);
-    transform: scale(0);
+    transform: translateY(10px);
     opacity: 0;
+    visibility: hidden;
 
-    transition: transform 0.5s ease, opacity 0.3s ease;
+    transition: transform 0.5s ease, opacity 0.3s ease, visibility 0.6s ease;
 
     ${CardContent}:hover & {
-      transform: scale(1);
+      transform: translateY(0);
       opacity: 1;
+      visibility: visible;
 
-      transition: transform 0.5s ease, opacity 0.3s ease;
+      transition: transform 0.5s ease, opacity 0.3s ease visibility 0.3s ease;
     }
   }
 
@@ -475,12 +496,12 @@ export const CardDetails = styled(motion.div)<CardDetailsProps>`
     font-size: 2rem;
 
     @media (min-width: 500px) {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
     }
   }
 
   p {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     ${ellipsis('100%', 3)}
 
     @media (min-width: 960px) {
