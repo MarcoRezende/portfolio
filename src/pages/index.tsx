@@ -48,15 +48,6 @@ const Home: React.FC = () => {
   const [isFilterOpened, setIsFilterOpened] = useState(false);
   const [isSearchBarFocused, setIsSearchBarFocused] = useState(false);
   const [selectValue, setSelectValue] = useState('');
-  const [hoveredCardContent, setHoveredCardContent] = useState([]);
-
-  const handleHoveredCardContentMouseOver = useCallback((e: MouseEvent) => {
-    setHoveredCardContent([e.currentTarget.id]);
-  }, []);
-
-  const handleHoveredCardContentMouseOut = useCallback(() => {
-    setHoveredCardContent([]);
-  }, []);
 
   const handleOnFocus = useCallback(() => {
     setInputFocused(true);
@@ -288,11 +279,7 @@ const Home: React.FC = () => {
               >
                 <CardContent>
                   <CardCover sources={project.cover} />
-                  <CardDetails
-                    shouldAnimate={hoveredCardContent.includes(
-                      'card-content-' + project.id,
-                    )}
-                  >
+                  <CardDetails>
                     <h2>{project.name}</h2>
                     <p>{project.shortDescription}</p>
                   </CardDetails>

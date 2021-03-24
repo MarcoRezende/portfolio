@@ -16,10 +16,6 @@ interface SearchBarProps {
   inputFocused: boolean;
 }
 
-interface CardDetailsProps {
-  shouldAnimate: boolean;
-}
-
 interface CardContainerReflectionProps {
   color: string;
 }
@@ -470,7 +466,7 @@ export const CardCover = styled(Img)`
   }
 `;
 
-export const CardDetails = styled(motion.div)<CardDetailsProps>`
+export const CardDetails = styled(motion.div)`
   text-align: center;
   padding: 2rem;
   height: 10rem;
