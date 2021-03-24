@@ -48,7 +48,6 @@ const Home: React.FC = () => {
   const [isFilterOpened, setIsFilterOpened] = useState(false);
   const [isSearchBarFocused, setIsSearchBarFocused] = useState(false);
   const [selectValue, setSelectValue] = useState('');
-  const [animationState, setAnimationState] = useState('hidden');
   const [hoveredCardContent, setHoveredCardContent] = useState([]);
 
   const handleHoveredCardContentMouseOver = useCallback((e: MouseEvent) => {
@@ -68,10 +67,8 @@ const Home: React.FC = () => {
   }, []);
 
   const handleIsFilterOpened = useCallback(() => {
-    setAnimationState('exit');
-
     setIsFilterOpened(!isFilterOpened);
-  }, [isFilterOpened, animationState]);
+  }, [isFilterOpened]);
 
   const handleIsSearchBarFocused = useCallback(
     state => {
@@ -94,17 +91,16 @@ const Home: React.FC = () => {
       end: { width: '100%' },
     },
     filterContainer: {
-      hidden: { display: 'none' },
+      hidden: { opacity: 0, height: 0, overflow: 'hidden' },
       visible: {
         height: 'auto',
         opacity: 1,
-        scale: 1,
+        overflow: 'visible',
         transition: {
           delayChildren: 0.2,
           staggerChildren: 0.1,
         },
       },
-      exit: { opacity: 0, height: 0, overflow: 'hidden' },
     },
     filterItem: {
       hidden: { y: 20, opacity: 0 },
@@ -112,7 +108,6 @@ const Home: React.FC = () => {
         y: 0,
         opacity: 1,
       },
-      exit: { y: 20, opacity: 0 },
     },
   };
 
@@ -208,7 +203,7 @@ const Home: React.FC = () => {
               />
 
               <FilterContainer
-                animate={isFilterOpened ? 'visible' : animationState}
+                animate={isFilterOpened ? 'visible' : 'hidden'}
                 variants={variants.filterContainer}
               >
                 <FormGroup variants={variants.filterItem}>

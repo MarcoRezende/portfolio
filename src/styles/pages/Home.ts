@@ -275,6 +275,10 @@ export const FilterContainer = styled(motion.div)`
   border-radius: 10px;
   background: #171212;
 
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+
   &:before {
     content: '';
     bottom: 100%;
