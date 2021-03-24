@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 
 import { FiGithub, FiDribbble } from 'react-icons/fi';
-import { RiLinkedinLine, RiArrowDropDownFill } from 'react-icons/ri';
+import { RiLinkedinLine } from 'react-icons/ri';
 import { SiMailDotRu, SiJavascript } from 'react-icons/si';
 import { IoLanguageSharp } from 'react-icons/io5';
 import { HiShieldExclamation } from 'react-icons/hi';
@@ -66,22 +66,22 @@ const Profile: React.FC<ProfileProps> = ({ className = '' }) => {
       programmingLanguages: [
         {
           name: 'Javascript',
-          knowlegdeRate: 70,
-          knowlegdeSummary:
+          knowledgeRate: 70,
+          knowledgeSummary:
             'Domínio dos fundamentos da linguagem: variáveis, funções, loops, promises.',
         },
         {
           name: 'HTML',
-          knowlegdeRate: 90,
-          knowlegdeSummary:
+          knowledgeRate: 90,
+          knowledgeSummary:
             'Correta aplicação das diversas tags html, de forma semântica e respeitando a acessibilidade.',
         },
       ],
       tools: [
         {
           name: 'Typescript',
-          knowlegdeRate: 75,
-          knowlegdeSummary:
+          knowledgeRate: 75,
+          knowledgeSummary:
             'Uso contínuo em aplicações desenvolvidas com javascript.',
         },
       ],
@@ -144,7 +144,7 @@ const Profile: React.FC<ProfileProps> = ({ className = '' }) => {
             {user.skills.programmingLanguages.map(skill => (
               <ListItemComplex
                 key={skill.name}
-                knowlegdeRate={skill.knowlegdeRate}
+                knowledgeRate={skill.knowledgeRate}
               >
                 <SiJavascript />
                 <span>{skill.name}</span>
@@ -165,7 +165,7 @@ const Profile: React.FC<ProfileProps> = ({ className = '' }) => {
                     Sujeito a interpretação pessoal
                   </motion.span>
                   <motion.p variants={variants.skillSummaryItem}>
-                    {skill.knowlegdeSummary}
+                    {skill.knowledgeSummary}
                   </motion.p>
                 </SkillSummary>
               </ListItemComplex>
@@ -180,7 +180,7 @@ const Profile: React.FC<ProfileProps> = ({ className = '' }) => {
             {user.skills.tools.map(skill => (
               <ListItemComplex
                 key={skill.name}
-                knowlegdeRate={skill.knowlegdeRate}
+                knowledgeRate={skill.knowledgeRate}
               >
                 <SiJavascript />
                 <span>{skill.name}</span>
@@ -201,7 +201,7 @@ const Profile: React.FC<ProfileProps> = ({ className = '' }) => {
                     Sujeito a interpretação pessoal
                   </motion.span>
                   <motion.p variants={variants.skillSummaryItem}>
-                    {skill.knowlegdeSummary}
+                    {skill.knowledgeSummary}
                   </motion.p>
                 </SkillSummary>
               </ListItemComplex>

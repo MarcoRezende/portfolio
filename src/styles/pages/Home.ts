@@ -20,14 +20,13 @@ interface CardDetailsProps {
   shouldAnimate: boolean;
 }
 
+interface CardContainerReflectionProps {
+  color: string;
+}
+
 const searchBarContainerExpandAnimation = keyframes`
   from { width: 4rem };
   to { width: 100% }
-`;
-
-const cardContainerAnimation = keyframes`
-  from { transform: scale(0); opacity: 0 };
-  to { transform: scale(1); opacity: 1 };
 `;
 
 export const Container = styled.div`
@@ -383,7 +382,7 @@ export const CardsGrid = styled.div`
   }
 `;
 
-export const CustomCard = styled(Card)`
+export const CustomCard = styled(Card)<CardContainerReflectionProps>`
   width: 30rem;
   box-shadow: 0 21px 15px -14px #000;
 
@@ -404,8 +403,12 @@ export const CustomCard = styled(Card)`
       width: 100%;
       bottom: -2rem;
       left: 2rem;
-      background: #323039;
       box-shadow: 0 -9px 5px -10px rgb(0 0 0 / 60%);
+      ${props =>
+        props.color &&
+        css`
+          background: ${props.color};
+        `}
     }
 
     .reflection:nth-of-type(2),

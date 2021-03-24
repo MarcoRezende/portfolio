@@ -195,6 +195,9 @@ export const ListItemComplex = styled.li<ListItemComplexProps>`
 
 export const SkillSummary = styled(motion.div)`
   text-align: justify;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
 
   span {
     margin: 1rem 0;

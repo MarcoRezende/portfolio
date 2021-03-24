@@ -136,7 +136,7 @@ const Home: React.FC = () => {
     {
       id: '1',
       name: 'Wiki Game',
-      color: '#ab418a',
+      color: '#8c32ef',
       shortDescription: 'Jogo de navegador baseado no conteudo da Wikipedia.',
       cover: {
         low:
@@ -150,7 +150,7 @@ const Home: React.FC = () => {
     {
       id: '2',
       name: 'My Reads',
-      color: '#ab418a',
+      color: '#41aba9',
       shortDescription:
         'Aplicação para reunir e organizar livros em seções/estantes.',
       cover: {
@@ -165,7 +165,7 @@ const Home: React.FC = () => {
     {
       id: '3',
       name: 'Beats',
-      color: '#ab418a',
+      color: '#ef3264',
       shortDescription:
         'Site para vender conteudo musical, como drum kits, presets para plugins e muito mais.',
       cover: {
@@ -281,6 +281,7 @@ const Home: React.FC = () => {
             {fakeProjectsData.map(project => (
               <CustomCard
                 key={'card-' + project.id}
+                color={project.color}
                 margin={0}
                 borderRadius="8px"
                 cardColor="#1a191d"
