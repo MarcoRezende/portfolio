@@ -9,6 +9,7 @@ import Profile from '../../components/Profile';
 import Contacts from '../../components/Contacts';
 import Card from '../../components/Card';
 import OutsideClickWrapper from '../../components/OutsideClickWrapper';
+import Img from '../../components/Img';
 
 interface SearchBarProps {
   isSearchBarFocused: boolean;
@@ -427,10 +428,9 @@ export const CardContent = styled.div`
   }
 `;
 
-export const CardCover = styled.div`
-  background-image: url('https://marcorezendebackup.github.io/portfolio/imgs/matching-game-cover-medium.png');
-  background-size: cover;
-  background-position: center;
+export const CardCover = styled(Img)`
+  object-fit: cover;
+  object-position: center;
 
   width: 100%;
   height: 25rem;

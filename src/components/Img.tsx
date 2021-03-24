@@ -1,29 +1,25 @@
 import { memo } from 'react';
 
-interface ImagesSet {
-  images: ImgSourceProps[];
-}
-
 interface ImgSourceProps {
+  className?: string;
+
   sources: {
-    small: string;
+    low: string;
     medium: string;
     high: string;
-  }
+  };
 }
 
-export const Images: React.FC<ImagesSet> = memo(({images}) => {
-  return (
-    <div>
-      {images.map(image => {
-        <Img sources={image.sources} />;
-      })}
-    </div>
-  );
-});
-
 const Img: React.FC<ImgSourceProps> = memo(
-  ({sources: { small, medium, high }}) => {
-    return <img src={small} srcSet={medium + ' 2x, ' + high + ' 3x'} />;
+  ({ sources: { low, medium, high }, className = '' }) => {
+    return (
+      <img
+        className={className}
+        src={low}
+        srcSet={medium + ' 2x, ' + high + ' 3x'}
+      />
+    );
   },
 );
+
+export default Img;

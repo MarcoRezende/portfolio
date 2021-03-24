@@ -291,7 +291,7 @@ const Home: React.FC = () => {
                 darkenRate={0.31}
               >
                 <CardContent>
-                  <CardCover />
+                  <CardCover sources={project.cover} />
                   <CardDetails
                     shouldAnimate={hoveredCardContent.includes(
                       'card-content-' + project.id,
