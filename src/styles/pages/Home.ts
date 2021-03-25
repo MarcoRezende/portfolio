@@ -46,6 +46,10 @@ export const Container = styled.div`
   @media (min-width: 960px) {
     grid-template-columns: 30rem 1fr 0;
   }
+
+  @media (min-width: 1080px) {
+    grid-template-columns: 30rem 1fr 25rem;
+  }
 `;
 
 export const Main = styled(SimpleBar)`
@@ -99,7 +103,14 @@ export const UserProfile = styled(Profile)`
   }
 `;
 
-export const UserContacts = styled(Contacts)``;
+export const UserContacts = styled(Contacts)`
+  position: relative;
+  left: 999rem;
+
+  @media (min-width: 1080px) {
+    left: 0;
+  }
+`;
 
 export const CustomForm = styled(Form)`
   margin: 1rem 0;

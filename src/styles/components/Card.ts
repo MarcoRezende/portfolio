@@ -24,7 +24,7 @@ interface CardProps {
 export const Container = styled.div<CardContainerProps>`
   position: relative;
   border-radius: ${props => props.styles.borderRadius};
-  min-height: 100px;
+  min-height: 10px;
 
   display: flex;
   justify-content: center;

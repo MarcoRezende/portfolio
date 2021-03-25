@@ -1,9 +1,8 @@
-import React, { memo, HTMLAttributes, Ref } from 'react';
+import React, { memo, HTMLAttributes } from 'react';
 import { Container, Content, Reflection } from '../styles/components/Card';
 
 export interface CardProps {
   className?: string;
-  ref?: Ref<HTMLDivElement>;
 
   cardColor?: string;
   reflectColor?: string;
@@ -47,7 +46,7 @@ const Card: React.FC<CardProps & HTMLAttributes<HTMLDivElement>> = memo(
         {reflections.map((_, i) => (
           <Reflection className="reflection" key={'reflection-' + i++} />
         ))}
-        <Content styles={styles} features={features}>
+        <Content className="card-content" styles={styles} features={features}>
           {children}
         </Content>
       </Container>
