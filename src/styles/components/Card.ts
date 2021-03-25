@@ -30,13 +30,17 @@ export const Container = styled.div<CardContainerProps>`
   flex-direction: column;
 
   ${props => {
-    let margin = props.reflections.length + props.features.distanceRate;
+    // reflections height that overflows the card container
+    let reflectionOverflowHeight =
+      props.reflections.length + props.features.distanceRate;
 
     return css`
-      margin-top: ${margin}rem;
-
       ${Ignore} {
-        height: ${margin}rem;
+        height: ${reflectionOverflowHeight}rem;
+      }
+
+      ${Reflection} {
+        height: calc(100% - ${reflectionOverflowHeight}rem);
       }
     `;
   }}
@@ -46,7 +50,7 @@ export const Container = styled.div<CardContainerProps>`
       return css`
         & > .reflection:nth-of-type(${i + 1}) {
           width: ${100 - (i + 1) * 10}%;
-          /* bottom: ${i + 1 + props.features.distanceRate}rem; */
+          bottom: ${i + 1 + props.features.distanceRate}rem;
           z-index: ${-i - 1};
           background: ${darken(
             (i + 1) * (props.features.darkenRate / 10),
@@ -72,7 +76,6 @@ export const Ignore = styled.div`
 `;
 
 export const Reflection = styled.div`
-  height: 100%;
   position: absolute;
 `;
 

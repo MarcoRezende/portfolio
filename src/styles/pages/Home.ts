@@ -113,7 +113,7 @@ export const UserContacts = styled(Contacts)`
 `;
 
 export const CustomForm = styled(Form)`
-  margin: 1rem 0;
+  margin: 2rem 0;
 
   display: flex;
   flex-direction: column-reverse;
@@ -400,7 +400,8 @@ export const CardsGrid = styled.div`
 
   @media (min-width: 960px) {
     grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
-    grid-gap: 2rem 4rem;
+    grid-gap: 4rem;
+    padding-right: 2rem;
   }
 `;
 
@@ -418,10 +419,14 @@ export const CustomCard = styled(Card)<CardContainerReflectionProps>`
 
   @media (min-width: 960px) {
     width: 100%;
-    margin: 1rem 0;
     box-shadow: none;
 
+    .ignore {
+      height: 0;
+    }
+
     .reflection:nth-of-type(1) {
+      height: 100%;
       width: 100%;
       bottom: -2rem;
       left: 2rem;

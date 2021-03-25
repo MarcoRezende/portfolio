@@ -49,7 +49,7 @@ const Card: React.FC<CardProps & HTMLAttributes<HTMLDivElement>> = memo(
         {reflections.map((_, i) => (
           <Reflection className="reflection" key={'reflection-' + i++} />
         ))}
-        <Ignore />
+        <Ignore className="ignore" />
         <Content className="card-content" styles={styles} features={features}>
           {children}
         </Content>
