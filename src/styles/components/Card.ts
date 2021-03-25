@@ -10,7 +10,6 @@ interface CardProps {
     cardColor?: string;
     reflectColor?: string;
     borderRadius?: string;
-    margin?: number;
   };
 
   features: {
@@ -27,24 +26,27 @@ export const Container = styled.div<CardContainerProps>`
   min-height: 10px;
 
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
   ${props => {
-    let margin = props.reflections.length;
+    let margin = props.reflections.length + props.features.distanceRate;
 
     return css`
-      margin-top: ${props.styles.margin +
-      margin +
-      props.features.distanceRate}rem;
+      margin-top: ${margin}rem;
+
+      ${Ignore} {
+        height: ${margin}rem;
+      }
     `;
   }}
 
   ${props =>
     props.reflections.map((_, i) => {
       return css`
-        & > .reflection:nth-child(${i + 1}) {
+        & > .reflection:nth-of-type(${i + 1}) {
           width: ${100 - (i + 1) * 10}%;
-          bottom: ${i + 1 + props.features.distanceRate}rem;
+          /* bottom: ${i + 1 + props.features.distanceRate}rem; */
           z-index: ${-i - 1};
           background: ${darken(
             (i + 1) * (props.features.darkenRate / 10),
@@ -63,6 +65,10 @@ export const Container = styled.div<CardContainerProps>`
 	& > .reflection {
     border-radius: ${props => props.styles.borderRadius};
   }
+`;
+
+export const Ignore = styled.div`
+  width: 100%;
 `;
 
 export const Reflection = styled.div`

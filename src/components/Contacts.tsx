@@ -118,7 +118,6 @@ const Contacts: React.FC<InfoProps> = ({ address, contacts }) => {
                 reflection={1}
                 borderRadius={'5px'}
                 cardColor={'#e1e1e1'}
-                margin={0}
                 applyBorderRadiusAll={true}
               >
                 <h2>
@@ -137,7 +136,6 @@ const Contacts: React.FC<InfoProps> = ({ address, contacts }) => {
                 reflection={1}
                 borderRadius={'5px'}
                 cardColor={'#e1e1e1'}
-                margin={2}
                 applyBorderRadiusAll={true}
               >
                 <h2>

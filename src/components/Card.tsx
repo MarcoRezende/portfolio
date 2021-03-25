@@ -1,5 +1,10 @@
 import React, { memo, HTMLAttributes } from 'react';
-import { Container, Content, Reflection } from '../styles/components/Card';
+import {
+  Container,
+  Ignore,
+  Content,
+  Reflection,
+} from '../styles/components/Card';
 
 export interface CardProps {
   className?: string;
@@ -7,7 +12,6 @@ export interface CardProps {
   cardColor?: string;
   reflectColor?: string;
   borderRadius?: string;
-  margin?: number;
 
   reflection?: number;
   distanceRate?: number;
@@ -21,7 +25,6 @@ const Card: React.FC<CardProps & HTMLAttributes<HTMLDivElement>> = memo(
     cardColor,
     reflectColor,
     borderRadius,
-    margin,
     reflection,
     distanceRate,
     applyBorderRadiusAll,
@@ -31,7 +34,7 @@ const Card: React.FC<CardProps & HTMLAttributes<HTMLDivElement>> = memo(
   }) => {
     const reflections = Array(reflection).fill(0);
     const [styles, features] = [
-      { cardColor, reflectColor, borderRadius, margin },
+      { cardColor, reflectColor, borderRadius },
       { reflection, distanceRate, applyBorderRadiusAll, darkenRate },
     ];
 
@@ -46,6 +49,7 @@ const Card: React.FC<CardProps & HTMLAttributes<HTMLDivElement>> = memo(
         {reflections.map((_, i) => (
           <Reflection className="reflection" key={'reflection-' + i++} />
         ))}
+        <Ignore />
         <Content className="card-content" styles={styles} features={features}>
           {children}
         </Content>
@@ -60,7 +64,6 @@ Card.defaultProps = {
   cardColor: '#1a191d',
   reflectColor: '',
   borderRadius: '0',
-  margin: 1,
 
   reflection: 1,
   distanceRate: 1,

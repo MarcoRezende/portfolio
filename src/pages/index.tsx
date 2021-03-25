@@ -268,7 +268,6 @@ const Home: React.FC = () => {
               <CustomCard
                 key={'card-' + project.id}
                 color={project.color}
-                margin={0}
                 borderRadius="8px"
                 cardColor="#1a191d"
                 reflectColor="#3a3742"
