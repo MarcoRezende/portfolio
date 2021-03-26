@@ -26,14 +26,24 @@ const searchBarContainerExpandAnimation = keyframes`
 `;
 
 const cardCoverVisibleAnimation = keyframes`
-  0% {  transform: scale(1); }
-  50% {  transform: scale(1.3); }
-  100% {  transform: scale(1.2); }
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1.2); }
 `;
 
 const cardCoverHideAnimation = keyframes`
-  from {  transform: scale(1.2); }
+  from { transform: scale(1.2); }
   to {  transform: scale(1); }
+`;
+
+const profileInAnimation = keyframes`
+  from { transform: translateX(-20px); opacity: 0 }
+  to { visibility: visible; transform: translateX(0); opacity: 1 }
+`;
+
+const contactsInAnimation = keyframes`
+  from { transform: translateX(20px); opacity: 0 }
+  to { visibility: visible; transform: translateX(0); opacity: 1 }
 `;
 
 export const Container = styled.div`
@@ -95,20 +105,18 @@ export const Main = styled(SimpleBar)`
 `;
 
 export const UserProfile = styled(Profile)`
-  position: relative;
-  right: 999rem;
+  visibility: hidden;
 
   @media (min-width: 960px) {
-    right: 0;
+    animation: ${profileInAnimation} 1s forwards;
   }
 `;
 
 export const UserContacts = styled(Contacts)`
-  position: relative;
-  left: 999rem;
+  visibility: hidden;
 
   @media (min-width: 1080px) {
-    left: 0;
+    animation: ${contactsInAnimation} 1s forwards;
   }
 `;
 

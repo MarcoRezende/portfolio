@@ -22,6 +22,7 @@ import {
 } from '../styles/components/Contacts';
 
 interface InfoProps {
+  className?: string;
   address?: {
     country?: string;
     state?: string;
@@ -38,6 +39,7 @@ interface InfoProps {
 }
 
 const fakeData: InfoProps = {
+  className: '',
   address: {
     country: 'Brasil',
     state: 'São Paulo',
@@ -53,7 +55,7 @@ const fakeData: InfoProps = {
   },
 };
 
-const Contacts: React.FC<InfoProps> = ({ address, contacts }) => {
+const Contacts: React.FC<InfoProps> = ({ className, address, contacts }) => {
   const [isListOpened, setIsListOpened] = useState<boolean>(false);
 
   const switcher = useCallback(() => {
@@ -89,7 +91,7 @@ const Contacts: React.FC<InfoProps> = ({ address, contacts }) => {
   };
 
   return (
-    <Container>
+    <Container className={className}>
       <ImageContainer>
         <Image sources={sources} />
       </ImageContainer>
