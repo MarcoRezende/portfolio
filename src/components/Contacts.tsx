@@ -18,7 +18,7 @@ import {
   AddressAndContacts,
   Item,
   MapContainer,
-  Map,
+  Maps,
 } from '../styles/components/Contacts';
 
 interface InfoProps {
@@ -151,7 +151,7 @@ const Contacts: React.FC<InfoProps> = ({ address, contacts }) => {
         </Address>
 
         <MapContainer>
-          <Map />
+          <Maps />
         </MapContainer>
       </Location>
     </Container>

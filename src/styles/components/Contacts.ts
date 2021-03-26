@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 import Img from '../../components/Img';
+import Map from '../../components/Map';
 
 const addressPrimaryHeight = '5rem';
 
@@ -120,4 +121,4 @@ export const MapContainer = styled.div`
   overflow: hidden;
 `;
 
-export const Map = styled.div``;
+export const Maps = styled(Map)``;
