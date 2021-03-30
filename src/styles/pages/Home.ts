@@ -1,13 +1,13 @@
 import styled, { css, keyframes } from 'styled-components';
 import { darken, ellipsis } from 'polished';
-import Select from 'react-select';
+import SelectComponent from 'react-select';
 import { motion } from 'framer-motion';
-import { Form } from '@unform/web';
+import { Form as FormComponent } from '@unform/web';
 import SimpleBar from 'simplebar-react';
 
 import Profile from '../../components/Profile';
 import Contacts from '../../components/Contacts';
-import Card from '../../components/Card';
+import CardComponent from '../../components/Card';
 import OutsideClickWrapper from '../../components/OutsideClickWrapper';
 import Img from '../../components/Img';
 
@@ -119,7 +119,7 @@ export const UserContacts = styled(Contacts)`
   }
 `;
 
-export const CustomForm = styled(Form)`
+export const Form = styled(FormComponent)`
   margin: 2rem 0;
 
   display: flex;
@@ -306,7 +306,7 @@ export const FilterContainer = styled(motion.div)`
   }
 `;
 
-export const CustomSelect = styled(Select)`
+export const Select = styled(SelectComponent)`
   .custom-select__control {
     background: #171212;
     color: #100f13;
@@ -423,7 +423,7 @@ export const CardOverlay = styled.div`
   }
 `;
 
-export const CustomCard = styled(Card)<CardContainerReflectionProps>`
+export const Card = styled(CardComponent)<CardContainerReflectionProps>`
   box-shadow: 0 21px 15px -14px #000;
   width: 100%;
   height: 100%;

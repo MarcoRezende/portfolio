@@ -13,7 +13,7 @@ import {
   Main,
   UserProfile,
   UserContacts,
-  CustomForm,
+  Form,
   SearchBar,
   FilterBar,
   Button,
@@ -22,9 +22,9 @@ import {
   FormGroup,
   SelectGroup,
   CardOverlay,
-  CustomSelect,
+  Select,
   CardsGrid,
-  CustomCard,
+  Card,
   CardContent,
   CoverWrapper,
   CardCover,
@@ -179,7 +179,7 @@ const Home: React.FC = () => {
           <h1>Projetos</h1>
           <p>Explore</p>
 
-          <CustomForm ref={formRef} onSubmit={handleFilterOnSubmit}>
+          <Form ref={formRef} onSubmit={handleFilterOnSubmit}>
             <FilterBar>
               <Button
                 id="filter"
@@ -213,10 +213,10 @@ const Home: React.FC = () => {
 
                 <FormGroup variants={variants.filterItem}>
                   <h2>Filtrar por tag</h2>
-                  <CustomSelect
+                  <Select
                     onChange={handleSelectValue}
                     components={makeAnimated()}
-                    instanceId="customSelect"
+                    instanceId="Select"
                     classNamePrefix="custom-select"
                     isMulti
                     options={[
@@ -264,12 +264,12 @@ const Home: React.FC = () => {
               />
               <RiSearch2Line />
             </SearchBar>
-          </CustomForm>
+          </Form>
 
           <CardsGrid>
             {fakeProjectsData.map(project => (
               <CardOverlay key={'card-' + project.id}>
-                <CustomCard
+                <Card
                   $highlightColor={project.color}
                   borderRadius="8px"
                   cardColor="#1a191d"
@@ -288,7 +288,7 @@ const Home: React.FC = () => {
                       <p>{project.shortDescription}</p>
                     </CardDetails>
                   </CardContent>
-                </CustomCard>
+                </Card>
               </CardOverlay>
             ))}
           </CardsGrid>
