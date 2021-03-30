@@ -17,7 +17,7 @@ interface SearchBarProps {
 }
 
 interface CardContainerReflectionProps {
-  color: string;
+  $highlightColor: string;
 }
 
 const searchBarContainerExpandAnimation = keyframes`
@@ -452,9 +452,9 @@ export const CustomCard = styled(Card)<CardContainerReflectionProps>`
       left: 2rem;
       box-shadow: 0 -9px 5px -10px rgb(0 0 0 / 60%);
       ${props =>
-        props.color &&
+        props.$highlightColor &&
         css`
-          background: ${props.color};
+          background: ${props.$highlightColor};
         `}
     }
 

@@ -269,7 +269,7 @@ const Home: React.FC = () => {
             {fakeProjectsData.map(project => (
               <CardOverlay key={'card-' + project.id}>
                 <CustomCard
-                  color={project.color}
+                  $highlightColor={project.color}
                   borderRadius="8px"
                   cardColor="#1a191d"
                   reflectColor="#3a3742"
