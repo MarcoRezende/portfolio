@@ -21,10 +21,12 @@ import {
   SubmitButtonContainer,
   FormGroup,
   SelectGroup,
+  CardOverlay,
   CustomSelect,
   CardsGrid,
   CustomCard,
   CardContent,
+  CoverWrapper,
   CardCover,
   CardDetails,
 } from '../styles/pages/Home';
@@ -265,25 +267,28 @@ const Home: React.FC = () => {
 
           <CardsGrid>
             {fakeProjectsData.map(project => (
-              <CustomCard
-                key={'card-' + project.id}
-                color={project.color}
-                borderRadius="8px"
-                cardColor="#1a191d"
-                reflectColor="#3a3742"
-                reflection={3}
-                distanceRate={0.9}
-                applyBorderRadiusAll={false}
-                darkenRate={0.31}
-              >
-                <CardContent>
-                  <CardCover sources={project.cover} />
-                  <CardDetails>
-                    <h2>{project.name}</h2>
-                    <p>{project.shortDescription}</p>
-                  </CardDetails>
-                </CardContent>
-              </CustomCard>
+              <CardOverlay key={'card-' + project.id}>
+                <CustomCard
+                  color={project.color}
+                  borderRadius="8px"
+                  cardColor="#1a191d"
+                  reflectColor="#3a3742"
+                  reflection={3}
+                  distanceRate={0.9}
+                  applyBorderRadiusAll={false}
+                  darkenRate={0.31}
+                >
+                  <CardContent>
+                    <CoverWrapper>
+                      <CardCover sources={project.cover} />
+                    </CoverWrapper>
+                    <CardDetails>
+                      <h2>{project.name}</h2>
+                      <p>{project.shortDescription}</p>
+                    </CardDetails>
+                  </CardContent>
+                </CustomCard>
+              </CardOverlay>
             ))}
           </CardsGrid>
         </Main>

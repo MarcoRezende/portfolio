@@ -70,7 +70,6 @@ export const Main = styled(SimpleBar)`
 
   @media (min-width: 960px) {
     box-shadow: 0 0 15px -5px rgb(0 0 0 / 39%);
-    padding: 0 10rem 4rem;
   }
 
   .simplebar-content {
@@ -398,7 +397,7 @@ export const CardsGrid = styled.div`
   width: 100%;
 
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: repeat(auto-fit, 30rem);
   justify-content: center;
   grid-gap: 1rem;
 
@@ -407,27 +406,39 @@ export const CardsGrid = styled.div`
   }
 
   @media (min-width: 960px) {
-    grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
-    grid-gap: 4rem;
-    padding-right: 2rem;
+    grid-gap: 2rem;
+  }
+`;
+
+// the container(s) set to absolute overflows the grid layout,
+// but knowing how much it does, the values can be compensated by
+// adding them to the overlay.
+export const CardOverlay = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  @media (min-width: 960px) {
+    height: 18rem;
   }
 `;
 
 export const CustomCard = styled(Card)<CardContainerReflectionProps>`
-  width: 30rem;
   box-shadow: 0 21px 15px -14px #000;
+  width: 100%;
+  height: 100%;
 
   > div {
     width: 100%;
   }
 
-  @media (min-width: 500px) {
-    width: 22rem;
-  }
-
   @media (min-width: 960px) {
-    width: 100%;
     box-shadow: none;
+
+    /*to compensate the card's reflect, both values below
+    were limited so 2rem will be left to be used*/
+    max-width: 20rem;
+    max-height: 16rem;
 
     .ignore {
       height: 0;
@@ -436,6 +447,7 @@ export const CustomCard = styled(Card)<CardContainerReflectionProps>`
     .reflection:nth-of-type(1) {
       height: 100%;
       width: 100%;
+      border-radius: 0;
       bottom: -2rem;
       left: 2rem;
       box-shadow: 0 -9px 5px -10px rgb(0 0 0 / 60%);
@@ -446,18 +458,21 @@ export const CustomCard = styled(Card)<CardContainerReflectionProps>`
         `}
     }
 
-    .reflection:nth-of-type(2),
-    .reflection:nth-of-type(3) {
+    .reflection:not(:nth-of-type(1)) {
       display: none;
     }
   }
 `;
 
 export const CardContent = styled.div`
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
   @media (min-width: 960px) {
     box-shadow: none;
     position: relative;
-    height: 18rem;
     overflow: hidden;
 
     display: flex;
@@ -466,16 +481,18 @@ export const CardContent = styled.div`
   }
 `;
 
+export const CoverWrapper = styled.div`
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+`;
+
 export const CardCover = styled(Img)`
   object-fit: cover;
   object-position: center;
 
   width: 100%;
-  height: 25rem;
-
-  @media (min-width: 500px) {
-    height: 18rem;
-  }
+  height: 100%;
 
   @media (min-width: 960px) {
     position: absolute;
@@ -493,7 +510,7 @@ export const CardCover = styled(Img)`
 export const CardDetails = styled(motion.div)`
   text-align: center;
   padding: 2rem;
-  height: 10rem;
+  height: 15rem;
 
   @media (min-width: 960px) {
     text-align: justify;
@@ -529,7 +546,7 @@ export const CardDetails = styled(motion.div)`
     ${ellipsis('100%', 3)}
 
     @media (min-width: 960px) {
-      ${ellipsis('100%', 5)}
+      ${ellipsis('100%', 6)}
     }
   }
 `;

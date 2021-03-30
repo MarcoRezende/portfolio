@@ -82,6 +82,7 @@ export const Reflection = styled.div`
 export const Content = styled.div<CardProps>`
   background: ${props => props.styles.cardColor};
   box-shadow: 0 -10px 10px -10px rgb(0 0 0 / 78%);
+  height: 100%;
 
   ${props =>
     props.features.applyBorderRadiusAll &&
