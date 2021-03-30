@@ -255,7 +255,8 @@ const Home: React.FC = () => {
               isSearchBarFocused={isSearchBarFocused}
               inputFocused={inputFocused}
             >
-              <input
+              <Input
+                name="searchQuery"
                 type="text"
                 placeholder="Pesquise um projeto"
                 onFocus={handleOnFocus}
