@@ -175,7 +175,7 @@ const Home: React.FC = () => {
       <Container>
         <UserProfile />
 
-        <Main>
+        <Main role="main">
           <h1>Projetos</h1>
           <p>Explore</p>
 
