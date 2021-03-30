@@ -428,12 +428,19 @@ export const Card = styled(CardComponent)<CardContainerReflectionProps>`
   width: 100%;
   height: 100%;
 
+  ${props =>
+    props.$highlightColor &&
+    css`
+      border-bottom: 1rem solid ${props.$highlightColor};
+    `}
+
   > div {
     width: 100%;
   }
 
   @media (min-width: 960px) {
     box-shadow: none;
+    border-bottom: 1rem solid transparent;
 
     /*to compensate the card's reflect, both values below
     were limited so 2rem will be left to be used*/
