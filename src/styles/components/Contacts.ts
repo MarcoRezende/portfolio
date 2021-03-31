@@ -35,7 +35,7 @@ export const Address = styled.div`
   width: 100%;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 4; // over map marker
 `;
 
 export const Primary = styled.div`
@@ -83,12 +83,15 @@ export const AddressAndContacts = styled(motion.ul)`
 
 export const Item = styled(motion.li)`
   & + & {
-    margin-top: 1rem;
+    margin-top: 2rem;
+  }
+
+  > .div {
+    box-shadow: 0 15px 20px -5px rgb(0 0 0 / 95%);
   }
 
   .card-content {
-    color: #383838;
-    background: #e1e1e1;
+    color: ${props => props.theme.colors.text.primary};
     width: 100%;
     padding: 1rem;
 

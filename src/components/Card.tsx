@@ -66,7 +66,7 @@ Card.defaultProps = {
   borderRadius: '0',
 
   reflection: 1,
-  distanceRate: 1,
+  distanceRate: 0,
   applyBorderRadiusAll: true,
   darkenRate: 0.1,
 };

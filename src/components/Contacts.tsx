@@ -117,10 +117,11 @@ const Contacts: React.FC<InfoProps> = ({ className, address, contacts }) => {
           >
             <Item variants={variants.listItem}>
               <Card
-                reflection={1}
+                reflection={2}
                 borderRadius={'5px'}
-                cardColor={'#e1e1e1'}
+                cardColor={'#243337'}
                 applyBorderRadiusAll={true}
+                darkenRate={0.5}
               >
                 <h2>
                   <AddressIcon />
@@ -135,10 +136,11 @@ const Contacts: React.FC<InfoProps> = ({ className, address, contacts }) => {
 
             <Item variants={variants.listItem}>
               <Card
-                reflection={1}
+                reflection={2}
                 borderRadius={'5px'}
-                cardColor={'#e1e1e1'}
+                cardColor={'#243337'}
                 applyBorderRadiusAll={true}
+                darkenRate={0.5}
               >
                 <h2>
                   <ContactsIcon />
