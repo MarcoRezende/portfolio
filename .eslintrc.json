@@ -19,10 +19,7 @@
       "jsx": true
     },
     "ecmaVersion": 12,
-    "sourceType": "module",
-    "babelOptions": {
-      "presets": ["next/babel"]
-    }
+    "sourceType": "module"
   },
   "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
   "rules": {
